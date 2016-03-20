@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
         /*Image de Background*/
         if(pRenderer)
         {
-            SDL_Surface *pSprite = SDL_LoadBMP("qui.bmp");
+            SDL_Surface  *pSprite = SDL_LoadBMP("qui.bmp");
             if(pSprite)
             {
                 SDL_Texture* pTexture = SDL_CreateTextureFromSurface(pRenderer,pSprite); // Préparation du sprite
