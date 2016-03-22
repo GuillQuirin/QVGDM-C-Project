@@ -21,6 +21,11 @@ int main(int argc, char *argv[])
         SDL_Event evenement;
         int boucle = 1;
 
+    /*Gestion du chronomètre dans le jeu*/
+        float seconde=0.0;
+        int temps0=0;
+        int temps1=0;
+
     /*Initialisation de la position de chaque element*/
         SDL_Rect positionRect, positionFond;
 
@@ -48,7 +53,19 @@ int main(int argc, char *argv[])
 
     /*"Attente" des actions de l'utilisateur*/
         while(boucle){
-            SDL_WaitEvent(&evenement); // Récupération de l'évènement
+
+            temps1 = SDL_GetTicks(); // Récupère le nb de millisecondes depuis le lancement
+            if(temps1-temps0 > 10)
+            {
+                seconde+=0.001;
+                temps0=temps1;
+            }
+            else // On endort le programme le temps qu'il faut
+            {
+                SDL_Delay(10 - (temps1 - temps0));
+            }
+
+            SDL_PollEvent(&evenement); // Récupération de l'évènement
             switch(evenement.type){//Type d'évènement
                 case SDL_QUIT: // Arrêt du programme
                     boucle = 0;
