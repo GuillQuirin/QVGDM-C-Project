@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 /*Appels des fonctions*/
 //void pause();
@@ -15,22 +16,28 @@ int test(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
     /*Allocation de la mémoire pour chaque élèments SDL*/
-        SDL_Surface *fenetre = NULL, *imagebg=NULL, *rectangle = NULL;
+        SDL_Surface *fenetre = NULL, *imagebg=NULL, *rectangle = NULL, *texte=NULL;
 
     /*Declaration de la variable d'évènements*/
         SDL_Event evenement;
         int boucle = 1;
 
+    /*Déclaration des styles pour le texte*/
+        TTF_Font *police=NULL;
+        SDL_Color couleurNoire = {0,0,0};
+
     /*Gestion du chronomètre dans le jeu*/
-        float seconde=0.0;
+        char temps[20];
+        float seconde=60.0;
         int temps0=0;
         int temps1=0;
 
     /*Initialisation de la position de chaque element*/
-        SDL_Rect positionRect, positionFond;
+        SDL_Rect positionRect, positionFond, positionTexte;
 
-    /*Préparation de la bibliothèque SDL avec son module audio et vidéo seulement*/
+    /*Préparation de la bibliothèque SDL avec son module audio et vidéo + texte*/
         SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_TIMER);
+        TTF_Init();
 
     /*Titre du logiciel*/
         SDL_WM_SetCaption("Titre du projet", NULL);
@@ -50,19 +57,31 @@ int main(int argc, char *argv[])
         positionFond.y=0;
         positionRect.x = 0;
         positionRect.y = 0;
+        positionTexte.x=0;
+        positionTexte.y=0;
+
+    //Chargement de la police
+        police=TTF_OpenFont("police.ttf",65);
+        TTF_SetFontStyle(police, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
+        texte = TTF_RenderText_Blended(police, "Test", couleurNoire);
 
     /*"Attente" des actions de l'utilisateur*/
         while(boucle){
 
             temps1 = SDL_GetTicks(); // Récupère le nb de millisecondes depuis le lancement
-            if(temps1-temps0 > 10)
+            if(temps1-temps0 >= 100)
             {
-                seconde+=0.001;
+                if(seconde>=1)
+                    seconde-=0.1;
+                else
+                    seconde=0.0;
                 temps0=temps1;
+                sprintf(temps, "%.1f", seconde);
+                texte = TTF_RenderText_Blended(police, temps, couleurNoire); // Réécriture de l'élèment texte
             }
             else // On endort le programme le temps qu'il faut
             {
-                SDL_Delay(10 - (temps1 - temps0));
+                SDL_Delay(100 - (temps1 - temps0));
             }
 
             SDL_PollEvent(&evenement); // Récupération de l'évènement
@@ -109,11 +128,17 @@ int main(int argc, char *argv[])
                     SDL_FillRect(rectangle, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
                     SDL_BlitSurface(rectangle, NULL, fenetre, &positionRect);//Application de l'élèment sur le background
 
+                //Caractéristiques du texte
+                    SDL_BlitSurface(texte, NULL, fenetre, &positionTexte);
+
                 /*Mise à jour de la fenêtre avec les élèments modifiés*/
                     SDL_Flip(fenetre);
         }
 
     /*Libération de la mémoire qui était allouée à SDL*/
+        TTF_CloseFont(police);
+        TTF_Quit();
+        SDL_FreeSurface(texte);
         SDL_FreeSurface(imagebg);
         SDL_FreeSurface(rectangle);
         SDL_QUIT;
