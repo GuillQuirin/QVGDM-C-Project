@@ -3,20 +3,39 @@
 #include <SDL/SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
+#include "timer.h"
 
-/*Appels des fonctions*/
-//void pause();
-
-/*test*/
-int test(int argc, char *argv[])
-{
-
-}
-/*Programme principal*/
+/*Programme principal -> Déclaration des pointeurs*/
 int main(int argc, char *argv[])
 {
     /*Allocation de la mémoire pour chaque élèments SDL*/
         SDL_Surface *fenetre = NULL, *imagebg=NULL, *rectangle = NULL, *texte=NULL;
+
+    /* Initialise SDL_Mixer */
+        int flags=MIX_INIT_MP3;
+        int initted=Mix_Init(flags);
+
+        /* open 44.1KHz, signed 16bit, system byte order,stereo audio, using 1024 byte chunks */
+        Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+
+        /* Définit le nombre de channels à mixer */
+        Mix_AllocateChannels(32);
+
+        Mix_Music *musique=NULL;
+
+        /* On libère la chanson précédente s'il y en a une */
+         if ( musique != NULL )
+         {
+            Mix_HaltMusic();
+            Mix_FreeMusic(musique);
+         }
+
+         /* On charge la nouvelle chanson */
+         musique = Mix_LoadMUS( "mus.mp3" );
+
+        /* On active la répétition de la musique à l'infini */
+        Mix_PlayMusic(musique, -1);
 
     /*Declaration de la variable d'évènements*/
         SDL_Event evenement;
@@ -29,8 +48,7 @@ int main(int argc, char *argv[])
     /*Gestion du chronomètre dans le jeu*/
         char temps[20];
         float seconde=60.0;
-        int temps0=0;
-        int temps1=0;
+        float temps0=0.0;
 
     /*Initialisation de la position de chaque element*/
         SDL_Rect positionRect, positionFond, positionTexte;
@@ -47,11 +65,12 @@ int main(int argc, char *argv[])
 
     //Préparation de l'élèment Background qui sera affiché
         fenetre = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE);
-            if (fenetre == NULL) // Si l'ouverture a échoué, on le note et on arrête
-            {
-                fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
-                exit(EXIT_FAILURE);
-            }
+
+    //Chargement de la police
+        police=TTF_OpenFont("police.ttf",65);
+        TTF_SetFontStyle(police, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
+        texte = TTF_RenderText_Blended(police, "Test", couleurNoire);
+
     //Initialisation de l'emplacement de chaque élèment avant la boucle
         positionFond.x=0;
         positionFond.y=0;
@@ -60,30 +79,15 @@ int main(int argc, char *argv[])
         positionTexte.x=0;
         positionTexte.y=0;
 
-    //Chargement de la police
-        police=TTF_OpenFont("police.ttf",65);
-        TTF_SetFontStyle(police, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
-        texte = TTF_RenderText_Blended(police, "Test", couleurNoire);
-
+float test=0.0;
+test = timer(test);
     /*"Attente" des actions de l'utilisateur*/
         while(boucle){
 
-            temps1 = SDL_GetTicks(); // Récupère le nb de millisecondes depuis le lancement
-            if(temps1-temps0 >= 100)
-            {
-                if(seconde>=1)
-                    seconde-=0.1;
-                else
-                    seconde=0.0;
-                temps0=temps1;
+            /*if(seconde !=-1.0){
                 sprintf(temps, "%.1f", seconde);
                 texte = TTF_RenderText_Blended(police, temps, couleurNoire); // Réécriture de l'élèment texte
-            }
-            else // On endort le programme le temps qu'il faut
-            {
-                SDL_Delay(100 - (temps1 - temps0));
-            }
-
+            }*/
             SDL_PollEvent(&evenement); // Récupération de l'évènement
             switch(evenement.type){//Type d'évènement
                 case SDL_QUIT: // Arrêt du programme
@@ -136,6 +140,9 @@ int main(int argc, char *argv[])
         }
 
     /*Libération de la mémoire qui était allouée à SDL*/
+        Mix_FreeMusic(musique);
+        Mix_CloseAudio();
+        Mix_Quit();
         TTF_CloseFont(police);
         TTF_Quit();
         SDL_FreeSurface(texte);
@@ -144,4 +151,3 @@ int main(int argc, char *argv[])
         SDL_QUIT;
     return EXIT_SUCCESS; //Similaire à un renvoi OK pour tous les OS
 }
-
