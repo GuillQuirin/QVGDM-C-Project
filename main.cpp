@@ -6,6 +6,9 @@
 #include <SDL_mixer.h>
 #include "timer.h"
 
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+
 int interieurClic(SDL_Event event, SDL_Rect zone, int longueur, int hauteur);
 int interieurMove(SDL_Event event, SDL_Rect zone, int longueur, int hauteur);
 
@@ -66,6 +69,7 @@ int main(int argc, char *argv[])
 
     /*Préparation de la bibliothèque SDL avec son module audio et vidéo + texte*/
         SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_TIMER);
+        SDL_putenv("SDL_VIDEO_CENTERED=center");
         TTF_Init();
 
     /*Titre du logiciel*/
@@ -75,7 +79,7 @@ int main(int argc, char *argv[])
         SDL_WM_SetIcon(IMG_Load("qui.bmp"), NULL);
 
     //Préparation de l'élèment Background qui sera affiché
-        fenetre = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE);
+        fenetre = SDL_SetVideoMode(SCREEN_WIDTH , SCREEN_HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );//| SDL_RESIZABLE);
 
     //Chargement de la police
         police=TTF_OpenFont("police.ttf",25);
@@ -117,7 +121,7 @@ float test=0.0;
 test = timer(test);
 
     //Application d'une image en guise de background
-    imagebg = IMG_Load("qui.bmp");
+    imagebg = IMG_Load("qui.jpg");
         //Si un fond BLEU est présent sur une image que l'on veut rendre transparente:
     SDL_SetColorKey(imagebg, SDL_SRCCOLORKEY, SDL_MapRGB(imagebg->format, 0, 0, 255));
 
