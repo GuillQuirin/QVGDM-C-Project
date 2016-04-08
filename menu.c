@@ -20,7 +20,7 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond){
         int Reclongueur=250, Rechauteur=60;
 
         //Chargement de la police
-        police=TTF_OpenFont("police.ttf",25);
+        police=TTF_OpenFont("times.ttf",25);
         TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
         texte1 = TTF_RenderText_Blended(police, "JOUER", couleurNoire);
         texte2 = TTF_RenderText_Blended(police, "SAUVEGARDE", couleurNoire);
@@ -59,19 +59,15 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond){
 
          while(boucle){
 
-            /*if(seconde !=-1.0){
-                sprintf(temps, "%.1f", seconde);
-                texte = TTF_RenderText_Blended(police, temps, couleurNoire); // Réécriture de l'élèment texte
-            }*/
             SDL_WaitEvent(&evenement); // Récupération de l'évènement
             switch(evenement.type){//Type d'évènement
                 case SDL_QUIT: // Arrêt du programme
-                    boucle = 0;
+                    boucle = 0;renvoi=0;
                     break;
                 case SDL_KEYDOWN: //Appui sur une touche
                     switch(evenement.key.keysym.sym){// Analyse de la touche
                         case SDLK_ESCAPE://Echap
-                            boucle=0;
+                            boucle=0;renvoi=0;
                             break;
                         default:
                             break;
@@ -80,10 +76,15 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond){
                 case SDL_MOUSEBUTTONUP: // Clic souris
                     switch(evenement.button.button){ //Analyse de l'équipement de la souris
                         case SDL_BUTTON_LEFT:
+                            /*JOUER*/
                             if(interieurClic(evenement,positionRect1, Reclongueur, Rechauteur)){
                                 boucle=0;renvoi=31;
                             }
-                            break;
+                            /*OPTIONS*/
+                            if(interieurClic(evenement,positionRect3, Reclongueur, Rechauteur)){
+                                boucle=0;renvoi=5;
+                            }
+                            /*QUITTER*/
                             if(interieurClic(evenement,positionRect4, Reclongueur, Rechauteur)){
                                 boucle=0;renvoi=0;
                             }

@@ -27,11 +27,6 @@ int main(int argc, char *argv[])
         //On active la répétition de la musique à l'infini
         Mix_PlayMusic(musique, -1);
 
-    /*Gestion du chronomètre dans le jeu*/
-        /*char temps[20];
-        float seconde=60.0;
-        float temps0=0.0;*/
-
     /*Préparation de la bibliothèque SDL avec son module audio et vidéo + texte*/
         SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_TIMER);
         SDL_putenv("SDL_VIDEO_CENTERED=center");
@@ -69,17 +64,20 @@ int main(int argc, char *argv[])
                 case 21:
                 case 22:
                 case 23:
-                /*3 sauvegardes*/
+                /*Partie depuis l'une des 3 sauvegardes*/
                 case 31:
                 case 32:
                 case 33:
                         retour = partie(fenetre,imagebg, positionFond, retour);
                         break;
+                /*Liste des sauvegardes*/
                 case 4:
                         retour = sauvegarde(fenetre,imagebg, positionFond);
                         break;
-                case 5:
-                        retour = option(fenetre,imagebg, positionFond);
+                /*Options*/
+                case 5://Options depuis menu
+                case 51://Options depuis game
+                        retour = option(fenetre,imagebg, positionFond, retour);
                         break;
                 /*Stats de fin de parties*/
                 case 61:
@@ -101,6 +99,3 @@ int main(int argc, char *argv[])
         SDL_Quit();
     return EXIT_SUCCESS; //Similaire à un renvoi OK pour tous les OS
 }
-
-
-

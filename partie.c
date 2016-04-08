@@ -1,7 +1,7 @@
 #include "bibliotheque.h"
 #include "fonctions.h"
 
-int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, int type){
+int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, int renvoi){
     SDL_Surface *texte0=NULL, *texte1=NULL, *texte2=NULL, *texte3=NULL, *texte4=NULL;
     SDL_Surface *rectangle0=NULL, *rectangle1=NULL, *rectangle2=NULL, *rectangle3=NULL, *rectangle4=NULL;
 
@@ -15,14 +15,14 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, in
 
     /*Declaration de la variable d'évènements*/
     SDL_Event evenement;
-    int boucle = 1, renvoi=1;
+    int boucle = 1;
     int Reclongueur=250, Rechauteur=60;
     //Tableau [id_question][libelle (question/reponses)]
     int tableau[4][5];
     int cpt=0, note=0;
 
     //Chargement de la police
-    police=TTF_OpenFont("police.ttf",25);
+    police=TTF_OpenFont("times.ttf",25);
         TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
 
     positionRect0.x = 150;
@@ -62,7 +62,12 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, in
     rectangle3 = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rectangle4 = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
 
-     while(boucle!=0 && cpt!=5){
+        /*Gestion du chronomètre dans le jeu*/
+        /*char temps[20];
+        float seconde=60.0;
+        float temps0=0.0;*/
+
+     while(boucle!=0 && cpt!=1){
 
         /*if(seconde !=-1.0){
             sprintf(temps, "%.1f", seconde);
@@ -78,13 +83,14 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, in
             case SDL_KEYDOWN: //Appui sur une touche
                 switch(evenement.key.keysym.sym){// Analyse de la touche
                     case SDLK_ESCAPE://Accès aux options
-                        renvoi = 5;
+                        renvoi = 51;
                         boucle = 0;
                         break;
                     default:
                         break;
                 }
                 break;
+
             case SDL_MOUSEBUTTONUP: // Clic souris
                 switch(evenement.button.button){ //Analyse de l'équipement de la souris
                     case SDL_BUTTON_LEFT:
@@ -137,10 +143,10 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, in
 
         //MAJ du texte
         texte0 = TTF_RenderText_Blended(police, "QUESTION",couleurNoire);
-        texte1 = TTF_RenderText_Blended(police, "REPONSE", couleurNoire);
-        texte2 = TTF_RenderText_Blended(police, "REPONSE", couleurNoire);
-        texte3 = TTF_RenderText_Blended(police, "REPONSE", couleurNoire);
-        texte4 = TTF_RenderText_Blended(police, "REPONSE", couleurNoire);
+        texte1 = TTF_RenderText_Blended(police, "REPONSE 1", couleurNoire);
+        texte2 = TTF_RenderText_Blended(police, "REPONSE 2", couleurNoire);
+        texte3 = TTF_RenderText_Blended(police, "REPONSE 3", couleurNoire);
+        texte4 = TTF_RenderText_Blended(police, "REPONSE 4", couleurNoire);
 
         /*Affichage des élèments + background à chaque tour de boucle*/
             //Coloration du fond
@@ -182,5 +188,5 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, in
     SDL_FreeSurface(texte4);
     TTF_CloseFont(police);
 
-    return renvoi;
+    return (renvoi>30 && renvoi<40) ? (renvoi+30) : renvoi;
 }
