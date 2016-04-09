@@ -1,7 +1,7 @@
 #include "bibliotheque.h"
 #include "fonctions.h"
 
-int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, int renvoi){
+int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF_Font *police, int renvoi){
     SDL_Surface *texte1=NULL, *texte2=NULL, *texte3=NULL, *texte4=NULL;
     SDL_Surface *rectangle1=NULL, *rectangle2=NULL, *rectangle3=NULL, *rectangle4=NULL;
 
@@ -10,16 +10,12 @@ int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, int
 
     SDL_Color couleurNoire = {0,0,0};
 
-    /*Déclaration des styles pour le texte*/
-    TTF_Font *police=NULL;
-
     /*Declaration de la variable d'évènements*/
     SDL_Event evenement;
     int boucle = 1;
     int Reclongueur=250, Rechauteur=60;
 
     //Chargement de la police
-    police=TTF_OpenFont("times.ttf",25);
     TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
     texte1 = TTF_RenderText_Blended(police, "RESULTAT", couleurNoire);
     texte2 = TTF_RenderText_Blended(police, "SCORE", couleurNoire);
@@ -125,7 +121,6 @@ int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, int
     SDL_FreeSurface(texte2);
     SDL_FreeSurface(texte3);
     SDL_FreeSurface(texte4);
-    TTF_CloseFont(police);
 
     return renvoi;
 }

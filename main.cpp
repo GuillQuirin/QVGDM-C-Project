@@ -27,10 +27,14 @@ int main(int argc, char *argv[])
         //On active la répétition de la musique à l'infini
         Mix_PlayMusic(musique, -1);
 
-    /*Préparation de la bibliothèque SDL avec son module audio et vidéo + texte*/
+        //Préparation de la bibliothèque SDL avec son module audio et vidéo + texte*/
         SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_TIMER);
         SDL_putenv("SDL_VIDEO_CENTERED=center");
         TTF_Init();
+
+    /*Police*/
+        TTF_Font *police=NULL;
+        police=TTF_OpenFont("times.ttf",25);
 
     /*Titre et icone du logiciel (doit se trouver avant la création de la fenêtre)*/
         SDL_WM_SetCaption("Qui veut gagner du pognon", NULL);
@@ -55,35 +59,35 @@ int main(int argc, char *argv[])
         do{
             switch(retour){
                 case 1:
-                        retour = menu(fenetre,imagebg, positionFond);
+                        retour = menu(fenetre,imagebg, positionFond, police);
                         break;
                 case 2:
-                        retour = difficulte(fenetre,imagebg, positionFond);
+                        retour = difficulte(fenetre,imagebg, positionFond, police);
                         break;
                 /*3 difficultés */
                 case 21:
                 case 22:
                 case 23:
-                /*Partie depuis l'une des 3 sauvegardes*/
+                /*Partie chargée depuis l'une des 3 sauvegardes*/
                 case 31:
                 case 32:
                 case 33:
-                        retour = partie(fenetre,imagebg, positionFond, retour);
+                        retour = partie(fenetre,imagebg, positionFond,police, retour);
                         break;
                 /*Liste des sauvegardes*/
                 case 4:
-                        retour = sauvegarde(fenetre,imagebg, positionFond);
+                        retour = sauvegarde(fenetre,imagebg, positionFond, police);
                         break;
                 /*Options*/
                 case 5://Options depuis menu
                 case 51://Options depuis game
-                        retour = option(fenetre,imagebg, positionFond, retour);
+                        retour = option(fenetre,imagebg, positionFond,police, retour);
                         break;
                 /*Stats de fin de parties*/
                 case 61:
                 case 62:
                 case 63:
-                        retour = stats(fenetre,imagebg, positionFond,retour);
+                        retour = stats(fenetre,imagebg, positionFond,police, retour);
                         break;
 
             }
@@ -96,6 +100,7 @@ int main(int argc, char *argv[])
         Mix_Quit();
         TTF_Quit();
         SDL_FreeSurface(imagebg);
+        TTF_CloseFont(police);
         SDL_Quit();
     return EXIT_SUCCESS; //Similaire à un renvoi OK pour tous les OS
 }

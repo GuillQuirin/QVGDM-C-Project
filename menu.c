@@ -1,7 +1,7 @@
 #include "bibliotheque.h"
 #include "fonctions.h"
 
-int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond){
+int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond,  TTF_Font *police){
 
         SDL_Surface *texte1=NULL, *texte2=NULL, *texte3=NULL, *texte4=NULL;
         SDL_Surface *rectangle1=NULL, *rectangle2=NULL, *rectangle3=NULL, *rectangle4=NULL;
@@ -11,16 +11,12 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond){
 
         SDL_Color couleurNoire = {0,0,0};
 
-        /*Déclaration des styles pour le texte*/
-        TTF_Font *police=NULL;
-
         /*Declaration de la variable d'évènements*/
         SDL_Event evenement;
         int boucle = 1, renvoi=1;
         int Reclongueur=250, Rechauteur=60;
 
         //Chargement de la police
-        police=TTF_OpenFont("times.ttf",25);
         TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
         texte1 = TTF_RenderText_Blended(police, "JOUER", couleurNoire);
         texte2 = TTF_RenderText_Blended(police, "SAUVEGARDE", couleurNoire);
@@ -78,7 +74,11 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond){
                         case SDL_BUTTON_LEFT:
                             /*JOUER*/
                             if(interieurClic(evenement,positionRect1, Reclongueur, Rechauteur)){
-                                boucle=0;renvoi=31;
+                                boucle=0;renvoi=2;
+                            }
+                            /*SAUVEGARDE*/
+                            if(interieurClic(evenement,positionRect2, Reclongueur, Rechauteur)){
+                                boucle=0;renvoi=4;
                             }
                             /*OPTIONS*/
                             if(interieurClic(evenement,positionRect3, Reclongueur, Rechauteur)){
@@ -145,7 +145,6 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond){
         SDL_FreeSurface(texte2);
         SDL_FreeSurface(texte3);
         SDL_FreeSurface(texte4);
-        TTF_CloseFont(police);
 
         return renvoi;
 }
