@@ -15,6 +15,7 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     SDL_Event evenement;
     int boucle = 1;
     int Reclongueur=250, Rechauteur=60;
+    int origineRenvoi = renvoi;
 
     //Chargement de la police
 
@@ -116,7 +117,7 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
                 SDL_BlitSurface(rect_Titre, NULL, fenetre, &position_Titre);
                 SDL_BlitSurface(rect_Mus, NULL, fenetre, &position_Mus);
-                if(renvoi!=5)
+                if(origineRenvoi !=5)
                     SDL_BlitSurface(rect_Partie, NULL, fenetre, &position_Partie);
                 SDL_BlitSurface(rect_Menu, NULL, fenetre, &position_Menu);
 
@@ -128,7 +129,7 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
             //Caractéristiques du texte
                 SDL_BlitSurface(txt_Titre, NULL, fenetre, &positionTxt_Titre);
                 SDL_BlitSurface(txt_Mus, NULL, fenetre, &positionTxt_Mus);
-                if(renvoi!=5)
+                if(origineRenvoi !=5)
                     SDL_BlitSurface(txt_Partie, NULL, fenetre, &positionTxt_Partie);
                 SDL_BlitSurface(txt_Menu, NULL, fenetre, &positionTxt_Menu);
 
