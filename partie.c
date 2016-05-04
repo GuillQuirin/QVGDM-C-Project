@@ -2,6 +2,8 @@
 #include "fonctions.h"
 #include "struc.h"
 
+#define TEMPS_QUESTION 10.0
+
 int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF_Font *police, int renvoi){
 
     SDL_Surface *txt_Question=NULL, *txt_Rep1=NULL, *txt_Rep2=NULL, *txt_Rep3=NULL, *txt_Rep4=NULL, *txt_Timer=NULL;
@@ -12,22 +14,60 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     SDL_Color couleurNoire = {0,0,0};
 
+
     /*Declaration de la variable d'évènements*/
     SDL_Event evenement;
     int boucle = 1;
-    char nombre[5];
-    sprintf(nombre, "%d", renvoi);
 
     char temps[20];
-    float seconde=10.0;
+    float seconde=TEMPS_QUESTION;
 
     int Reclongueur=250, Rechauteur=60;
 
-    //Tableau [id_question][libelle (question/reponses)]
-    int tableau[4][5];
-    int cpt=0, note=0;
+    int note=0;
 
-    //Chargement de la police
+    /*GESTION DU CSV*/
+
+    FILE *CSV;
+    char ligne[100];
+    char *ssChaine;
+    int i=0;
+    char elementTab[200];
+
+    //Tableau de structure pour 10 questions
+    etape tab[10];
+    int nb_question=0;
+
+    CSV = fopen("csv.csv","rt");
+    while(fgets(ligne,40,CSV) != NULL){
+        //Explosion de la ligne avec le ;
+        ssChaine = strtok(ligne,";");
+        for(i=0;i<6;i++){ // id, lib_question, r1, r2, r3, r4
+            sscanf(ssChaine,"%s",elementTab);
+            switch(i){
+                case 0:
+                    strcpy(tab[nb_question].id, elementTab);break;
+                case 1:
+                    strcpy(tab[nb_question].question, elementTab);break;
+                case 2:
+                    strcpy(tab[nb_question].reponse1, elementTab);break;
+                case 3:
+                    strcpy(tab[nb_question].reponse2, elementTab);break;
+                case 4:
+                    strcpy(tab[nb_question].reponse3, elementTab);break;
+                case 5:
+                    strcpy(tab[nb_question].reponse4, elementTab);break;
+            }
+            ssChaine = strtok(NULL, ";");
+        }
+        nb_question++;
+    }
+
+    fclose(CSV);
+
+
+    /*Chargement de la police*/
+
     TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
 
     positionRect_Quest.x = 150;
@@ -76,44 +116,8 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     rect_Rep4     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
 
 
-    FILE *CSV;
-    char ligne[100];
-    char *ssChaine;
-    int i=0, j=0;
-    char elementTab[200];
 
-    //Ouverture du csv
-    etape tab[10];
-    CSV = fopen("csv.csv","rt");
-    int compteur=0;
-    while(fgets(ligne,40,CSV) != NULL){
-        //Explosion de la ligne avec le ;
-        ssChaine = strtok(ligne,";");
-
-        for(i=0;i<6;i++){
-            sscanf(ssChaine,"%s",elementTab);
-            switch(i){
-                case 0:
-                    strcpy(tab[compteur].id, elementTab);break;
-                case 1:
-                    strcpy(tab[compteur].question, elementTab);break;
-                case 2:
-                    strcpy(tab[compteur].reponse1, elementTab);break;
-                case 3:
-                    strcpy(tab[compteur].reponse2, elementTab);break;
-                case 4:
-                    strcpy(tab[compteur].reponse3, elementTab);break;
-                case 5:
-                    strcpy(tab[compteur].reponse4, elementTab);break;
-            }
-            ssChaine = strtok(NULL, ";");
-        }
-        printf("--------------\n");
-        compteur++;
-    }
-    fclose(CSV);
-
-    while(boucle!=0 && cpt!=1){
+    while(boucle!=0 && nb_question!=0 ){ //&& note<3){
 
         /*Gestion du chronomètre dans le jeu*/
         seconde = timer(seconde);
@@ -122,10 +126,11 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
         }
 
         if(seconde == 0.0){
-            boucle =0;
+            boucle = 0;
         }
 
         SDL_PollEvent(&evenement); // Récupération de l'évènement
+        //SDL_WaitEvent(&evenement);
         switch(evenement.type){//Type d'évènement
 
             case SDL_QUIT: // Arrêt du programme
@@ -150,34 +155,38 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
                         //Reponse 1
                         if(interieurClic(evenement,positionRect_Rep1, Reclongueur, Rechauteur)){
-                            if(OK(tableau[4])){
+                            if(( strstr(tab[nb_question-1].reponse1,"*")) != NULL){
                                 note++;
                             }
-                            cpt++;
+                            nb_question=3;
+                            seconde=TEMPS_QUESTION;
                         }
 
                         //Reponse 2
                         if(interieurClic(evenement,positionRect_Rep2, Reclongueur, Rechauteur)){
-                            if(OK(tableau[4])){
+                            if(( strstr(tab[nb_question-1].reponse2,"*")) != NULL){
                                 note++;
                             }
-                            cpt++;
+                            nb_question=2;
+                            seconde=TEMPS_QUESTION;
                         }
 
                         //Reponse 3
                         if(interieurClic(evenement,positionRect_Rep3, Reclongueur, Rechauteur)){
-                            if(OK(tableau[4])){
+                            if(( strstr(tab[nb_question-1].reponse3,"*")) != NULL){
                                 note++;
                             }
-                            cpt++;
+                            nb_question=1;
+                            seconde=TEMPS_QUESTION;
                         }
 
                         //Reponse 4
                         if(interieurClic(evenement,positionRect_Rep4, Reclongueur, Rechauteur)){
-                            if(OK(tableau[4])){
+                            if(( strstr(tab[nb_question-1].reponse4,"*")) != NULL){
                                 note++;
                             }
-                            cpt++;
+                            nb_question--;
+                            seconde=TEMPS_QUESTION;
                         }
                         break;
                 }
@@ -203,21 +212,21 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                 //Reponse 4
                 if(interieurMove(evenement, positionRect_Rep4, Reclongueur, Rechauteur)){
                     SDL_FillRect(rect_Rep4, NULL, SDL_MapRGB(fenetre->format, 255, 206, 112));
-                   }
+                }
                 break;
         }
 
+        if(nb_question<=0)
+            continue;
 
         //MAJ du texte
 
-        txt_Question = TTF_RenderText_Blended(police,tab[0].question,couleurNoire);
-        //txt_Timer    = TTF_RenderText_Blended(police, temps, couleurNoire);
-        txt_Rep1     = TTF_RenderText_Blended(police, tab[0].reponse1, couleurNoire);
-        txt_Rep2     = TTF_RenderText_Blended(police, tab[0].reponse2, couleurNoire);
-        txt_Rep3     = TTF_RenderText_Blended(police, tab[0].reponse3, couleurNoire);
-        txt_Rep4     = TTF_RenderText_Blended(police, tab[0].reponse4, couleurNoire);
-
-        j++;
+        txt_Question = TTF_RenderText_Blended(police,tab[nb_question-1].question,couleurNoire);
+        txt_Timer    = TTF_RenderText_Blended(police, temps, couleurNoire);
+        txt_Rep1     = TTF_RenderText_Blended(police, tab[nb_question-1].reponse1, couleurNoire);
+        txt_Rep2     = TTF_RenderText_Blended(police, tab[nb_question-1].reponse2, couleurNoire);
+        txt_Rep3     = TTF_RenderText_Blended(police, tab[nb_question-1].reponse3, couleurNoire);
+        txt_Rep4     = TTF_RenderText_Blended(police, tab[nb_question-1].reponse4, couleurNoire);
 
         /*Affichage des élèments + background à chaque tour de boucle*/
 
@@ -252,6 +261,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
             /*Mise à jour de la fenêtre avec les élèments modifiés*/
                 SDL_Flip(fenetre);
     }
+
     SDL_FreeSurface(rect_Question);
     SDL_FreeSurface(rect_Timer);
     SDL_FreeSurface(rect_Rep1);

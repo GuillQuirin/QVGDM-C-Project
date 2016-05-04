@@ -53,7 +53,3 @@ float timer(float seconde){
     return seconde;
 }
 
-
-int OK(int tab[]){
-    return 1;
-}
