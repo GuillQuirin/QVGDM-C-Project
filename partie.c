@@ -1,5 +1,6 @@
 #include "bibliotheque.h"
 #include "fonctions.h"
+#include "struc.h"
 
 int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF_Font *police, int renvoi){
 
@@ -75,10 +76,46 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     rect_Rep4     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
 
 
-     while(boucle!=0 && cpt!=1){
+    FILE *CSV;
+    char ligne[100];
+    char *ssChaine;
+    int i=0, j=0;
+    char elementTab[200];
+
+    //Ouverture du csv
+    etape tab[10];
+    CSV = fopen("csv.csv","rt");
+    int compteur=0;
+    while(fgets(ligne,40,CSV) != NULL){
+        //Explosion de la ligne avec le ;
+        ssChaine = strtok(ligne,";");
+
+        for(i=0;i<6;i++){
+            sscanf(ssChaine,"%s",elementTab);
+            switch(i){
+                case 0:
+                    strcpy(tab[compteur].id, elementTab);break;
+                case 1:
+                    strcpy(tab[compteur].question, elementTab);break;
+                case 2:
+                    strcpy(tab[compteur].reponse1, elementTab);break;
+                case 3:
+                    strcpy(tab[compteur].reponse2, elementTab);break;
+                case 4:
+                    strcpy(tab[compteur].reponse3, elementTab);break;
+                case 5:
+                    strcpy(tab[compteur].reponse4, elementTab);break;
+            }
+            ssChaine = strtok(NULL, ";");
+        }
+        printf("--------------\n");
+        compteur++;
+    }
+    fclose(CSV);
+
+    while(boucle!=0 && cpt!=1){
 
         /*Gestion du chronomètre dans le jeu*/
-
         seconde = timer(seconde);
         if(seconde !=-1.0){
             sprintf(temps, "%.1f", seconde);
@@ -87,7 +124,6 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
         if(seconde == 0.0){
             boucle =0;
         }
-
 
         SDL_PollEvent(&evenement); // Récupération de l'évènement
         switch(evenement.type){//Type d'évènement
@@ -171,13 +207,17 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                 break;
         }
 
+
         //MAJ du texte
-        txt_Question = TTF_RenderText_Blended(police, "QUESTION",couleurNoire);
-        txt_Timer    = TTF_RenderText_Blended(police, temps, couleurNoire);
-        txt_Rep1     = TTF_RenderText_Blended(police, nombre, couleurNoire);
-        txt_Rep2     = TTF_RenderText_Blended(police, "REPONSE 2", couleurNoire);
-        txt_Rep3     = TTF_RenderText_Blended(police, "REPONSE 3", couleurNoire);
-        txt_Rep4     = TTF_RenderText_Blended(police, "REPONSE 4", couleurNoire);
+
+        txt_Question = TTF_RenderText_Blended(police,tab[0].question,couleurNoire);
+        //txt_Timer    = TTF_RenderText_Blended(police, temps, couleurNoire);
+        txt_Rep1     = TTF_RenderText_Blended(police, tab[0].reponse1, couleurNoire);
+        txt_Rep2     = TTF_RenderText_Blended(police, tab[0].reponse2, couleurNoire);
+        txt_Rep3     = TTF_RenderText_Blended(police, tab[0].reponse3, couleurNoire);
+        txt_Rep4     = TTF_RenderText_Blended(police, tab[0].reponse4, couleurNoire);
+
+        j++;
 
         /*Affichage des élèments + background à chaque tour de boucle*/
 
