@@ -23,7 +23,8 @@ int main(int argc, char *argv[])
             Mix_FreeMusic(musique);
          }
          // On charge la nouvelle chanson
-         musique = Mix_LoadMUS( "mu.mp3" );
+         musique = Mix_LoadMUS( "mus.mp3" );
+
         //On active la répétition de la musique à l'infini
         Mix_PlayMusic(musique, -1);
 

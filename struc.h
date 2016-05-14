@@ -24,3 +24,4 @@ struct RESULTAT{
     char reponse4[200];
     int resultat;
 };
+

@@ -82,6 +82,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     fclose(CSV);
 
+    int nb_total_questions = nb_question;
 
     /*Chargement de la police*/
 
@@ -300,6 +301,11 @@ int now=0, last=0;
     SDL_FreeSurface(txt_Rep4);
 
     /*ECRITURE DANS LE FICHIER DE SAUVEGARDE*/
+    char notation[20];
+    sprintf(notation, "%d;%d", note, nb_total_questions);
+    CSV = fopen("stats.csv","w");
+    fputs(notation,CSV);
+    fclose(CSV);
 
     return (renvoi>20 && renvoi<30) ? (renvoi+40) : renvoi;
 }

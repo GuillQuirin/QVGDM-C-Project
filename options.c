@@ -6,8 +6,8 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     SDL_Surface *txt_Titre=NULL, *txt_Mus=NULL, *txt_Menu=NULL;
     SDL_Surface *rect_Titre=NULL, *rect_Mus=NULL, *rect_Menu=NULL;
 
-    SDL_Rect position_Titre, position_Mus, position_Partie, position_Menu;
-    SDL_Rect positionTxt_Titre, positionTxt_Mus, positionTxt_Partie, positionTxt_Menu;
+    SDL_Rect position_Titre, position_Mus, position_Menu;
+    SDL_Rect positionTxt_Titre, positionTxt_Mus, positionTxt_Menu;
 
     SDL_Color couleurNoire = {0,0,0};
 
@@ -15,6 +15,9 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     SDL_Event evenement;
     int boucle = 1;
     int Reclongueur=250, Rechauteur=60;
+
+    //Volume de la musique
+    int volume = Mix_VolumeMusic(-1);
 
     //Chargement de la police
 
