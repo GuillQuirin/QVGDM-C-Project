@@ -43,43 +43,49 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     /*GESTION DU CSV*/
 
     FILE *CSV;
-    char ligne[100];
-    char *ssChaine;
     int i=0;
-    char elementTab[200];
 
+    char elementTab[100];
     //Tableau de structure pour 10 questions
-    etape tab[10];
+    etape tab[100];
     int nb_question=0;
-
-    CSV = fopen("csv.csv","rt");
-    while(fgets(ligne,80,CSV) != NULL){
-        //Explosion de la ligne avec le ;
-        ssChaine = strtok(ligne,";");
-        for(i=0;i<7;i++){
-            // id, lib_question, r1, r2, r3, r4, id_reponse
-            sscanf(ssChaine,"%s",elementTab);
-            switch(i){
-                case 0:
-                    strcpy(tab[nb_question].id, elementTab);break;
-                case 1:
-                    strcpy(tab[nb_question].question, elementTab);break;
-                case 2:
-                    strcpy(tab[nb_question].reponse1, elementTab);break;
-                case 3:
-                    strcpy(tab[nb_question].reponse2, elementTab);break;
-                case 4:
-                    strcpy(tab[nb_question].reponse3, elementTab);break;
-                case 5:
-                    strcpy(tab[nb_question].reponse4, elementTab);break;
-                case 6:
-                    tab[nb_question].resultat = char_to_int(elementTab[0]);break;
-            }
-            ssChaine = strtok(NULL, ";");
+    CSV = fopen("csv.txt","r");
+    while(( fgets(elementTab,100,CSV) ) != NULL ){
+        del_char(elementTab,';');
+        switch(i%7){
+            //ID
+            case 0:
+                tab[nb_question].id=atoi(elementTab);
+                break;
+            //QUESTION
+            case 1:
+                strcpy(tab[nb_question].question, elementTab);
+                break;
+            //REPONSE 1
+            case 2:
+                strcpy(tab[nb_question].reponse1, elementTab);
+                break;
+            //REPONSE 2
+            case 3:
+                strcpy(tab[nb_question].reponse2, elementTab);
+                break;
+            //REPONSE 3
+            case 4:
+                strcpy(tab[nb_question].reponse3, elementTab);
+                break;
+            //REPONSE 4
+            case 5:
+                strcpy(tab[nb_question].reponse4, elementTab);
+                break;
+            //REPONSE FINALE
+            case 6:
+                del_char(elementTab,';');
+                tab[nb_question].resultat=atoi(elementTab);
+                nb_question++;
+                break;
         }
-        nb_question++;
+        i++;
     }
-
     fclose(CSV);
 
     int nb_total_questions = nb_question;
@@ -133,9 +139,9 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     rect_Rep3     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep4     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
 
-int now=0, last=0;
+    int now=0, last=0;
 
-    while(boucle!=0 && nb_question!=0 && note<3){
+    while(boucle!=0 && nb_question!=0 && note<nb_total_questions){
 
         /*Gestion du chronomètre dans le jeu*/
         seconde = timer(seconde);

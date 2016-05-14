@@ -53,10 +53,20 @@ float timer(float seconde){
     return seconde;
 }
 
+void del_char(char* str, char c) //Enleve tous les c de str
+{
+   int id_read, id_write;
+   id_read = 0;
+   id_write = 0;
 
-int char_to_int(char str){
-    char tab[2];
-    tab[0] = str;
-    tab[1]='\0';
-    return (int) strtol(tab, NULL, 10);
+   while (str[id_read] != '\0')
+   {
+      if (str[id_read] != c)
+      {
+          str[id_write] = str[id_read];
+          id_write++;
+      }
+      id_read++;
+    }
+    str[id_write-1] = '\0';
 }
