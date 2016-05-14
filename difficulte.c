@@ -45,7 +45,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     positionRec_Menu.y  = 400;
 
 
-    positionTxt_Titre.x = positionRec_Titre.x+(Reclongueur/3);
+    positionTxt_Titre.x = positionRec_Titre.x+(Reclongueur/5);
     positionTxt_Titre.y = positionRec_Titre.y+(Rechauteur/4);
 
     positionTxt_Fac.x   = positionRec_Fac.x+(Reclongueur/4);
@@ -57,7 +57,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     positionTxt_Diff.x  = positionRec_Diff.x+(Reclongueur/4);
     positionTxt_Diff.y  = positionRec_Diff.y+(Rechauteur/4);
 
-    positionTxt_Menu.x  = positionRec_Menu.x+(Reclongueur/4);
+    positionTxt_Menu.x  = positionRec_Menu.x+(Reclongueur/10);
     positionTxt_Menu.y  = positionRec_Menu.y+(Rechauteur/4);
 
 
@@ -84,15 +84,15 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                     case SDL_BUTTON_LEFT:
                         if(interieurClic(evenement,positionRec_Fac, Reclongueur, Rechauteur)){
                             boucle=0;
-                            renvoi=31;
+                            renvoi=21;
                         }
                         if(interieurClic(evenement,positionRec_Moy, Reclongueur, Rechauteur)){
                             boucle=0;
-                            renvoi=31;
+                            renvoi=22;
                         }
                         if(interieurClic(evenement,positionRec_Diff, Reclongueur, Rechauteur)){
                             boucle=0;
-                            renvoi=31;
+                            renvoi=23;
                         }
                         if(interieurClic(evenement,positionRec_Menu, Reclongueur, Rechauteur)){
                             boucle=0;
@@ -105,22 +105,22 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
             case SDL_MOUSEMOTION:
                 //Facile
                 if(interieurMove(evenement, positionRec_Fac, Reclongueur, Rechauteur)){
-                    SDL_FillRect(rect_Fac, NULL, SDL_MapRGB(fenetre->format, 255, 206, 112));
+                    SDL_FillRect(rect_Fac, NULL, SDL_MapRGB(fenetre->format, 255, 255,255));
                    }
 
                 //Moyen
                 if(interieurMove(evenement, positionRec_Moy, Reclongueur, Rechauteur)){
-                    SDL_FillRect(rect_Moy, NULL, SDL_MapRGB(fenetre->format, 255, 206, 112));
+                    SDL_FillRect(rect_Moy, NULL, SDL_MapRGB(fenetre->format, 255, 255,255));
                    }
 
                 //Difficile
                 if(interieurMove(evenement, positionRec_Diff, Reclongueur, Rechauteur)){
-                    SDL_FillRect(rect_Diff, NULL, SDL_MapRGB(fenetre->format, 255, 206, 112));
+                    SDL_FillRect(rect_Diff, NULL, SDL_MapRGB(fenetre->format, 255, 255,255));
                    }
 
                 //Rectangle 4
                 if(interieurMove(evenement, positionRec_Menu, Reclongueur, Rechauteur)){
-                    SDL_FillRect(rect_Menu, NULL, SDL_MapRGB(fenetre->format, 255, 206, 112));
+                    SDL_FillRect(rect_Menu, NULL, SDL_MapRGB(fenetre->format, 255, 255, 255));
                    }
 
                 break;
@@ -129,7 +129,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
         /*Affichage des élèments + background à chaque tour de boucle*/
             //Coloration du fond
 
-                SDL_FillRect(fenetre, NULL, SDL_MapRGB(fenetre->format, 255, 255, 112));
+                SDL_FillRect(fenetre, NULL, SDL_MapRGB(fenetre->format, 0, 0, 0));
                 SDL_BlitSurface(imagebg, NULL, fenetre, &positionFond);
 
                 //Application de l'élèment sur le background
@@ -140,11 +140,11 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                 SDL_BlitSurface(rect_Diff, NULL, fenetre, &positionRec_Diff);
                 SDL_BlitSurface(rect_Menu, NULL, fenetre, &positionRec_Menu);
 
-                SDL_FillRect(rect_Titre, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
+                SDL_FillRect(rect_Titre, NULL, SDL_MapRGB(fenetre->format, 102, 204, 255));
                 SDL_FillRect(rect_Fac, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
-                SDL_FillRect(rect_Moy, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
-                SDL_FillRect(rect_Diff, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
-                SDL_FillRect(rect_Menu, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
+                SDL_FillRect(rect_Moy, NULL, SDL_MapRGB(fenetre->format, 255, 153, 0));
+                SDL_FillRect(rect_Diff, NULL, SDL_MapRGB(fenetre->format, 255, 0, 0));
+                SDL_FillRect(rect_Menu, NULL, SDL_MapRGB(fenetre->format, 102, 204, 255));
 
             //Caractéristiques du texte
                 SDL_BlitSurface(txt_Titre, NULL, fenetre, &positionTxt_Titre);

@@ -41,7 +41,8 @@ int main(int argc, char *argv[])
         SDL_WM_SetIcon(IMG_Load("qui.bmp"), NULL);
 
     //Préparation de l'élèment Background qui sera affiché
-        fenetre = SDL_SetVideoMode(SCREEN_WIDTH , SCREEN_HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );//| SDL_RESIZABLE);
+        fenetre = SDL_SetVideoMode(SCREEN_WIDTH , SCREEN_HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );
+        //| SDL_RESIZABLE);
 
     //Initialisation de l'emplacement du fond
         SDL_Rect positionFond;
@@ -51,13 +52,13 @@ int main(int argc, char *argv[])
     //Application d'une image en guise de background
     imagebg = IMG_Load("qui.jpg");
         //Si un fond BLEU est présent sur une image que l'on veut rendre transparente:
-    SDL_SetColorKey(imagebg, SDL_SRCCOLORKEY, SDL_MapRGB(imagebg->format, 0, 0, 255));
+    SDL_SetColorKey(imagebg, SDL_SRCCOLORKEY, SDL_MapRGB(imagebg->format, 255, 255, 255));
 
-    int retour =1;
+    int retour = 1;
 
     /*"Attente" des actions de l'utilisateur*/
         do{
-            switch(retour){
+           switch(retour){
                 case 1:
                         retour = menu(fenetre,imagebg, positionFond, police);
                         break;
@@ -68,10 +69,6 @@ int main(int argc, char *argv[])
                 case 21:
                 case 22:
                 case 23:
-                /*Partie chargée depuis l'une des 3 sauvegardes*/
-                case 31:
-                case 32:
-                case 33:
                         retour = partie(fenetre,imagebg, positionFond,police, retour);
                         break;
                 /*Liste des sauvegardes*/
@@ -80,7 +77,7 @@ int main(int argc, char *argv[])
                         break;
                 /*Options*/
                 case 5://Options depuis menu
-                case 51://Options depuis game
+                //case 51://Options depuis game
                         retour = option(fenetre,imagebg, positionFond,police, retour);
                         break;
                 /*Stats de fin de parties*/

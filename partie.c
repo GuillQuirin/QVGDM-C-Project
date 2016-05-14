@@ -2,8 +2,6 @@
 #include "fonctions.h"
 #include "struc.h"
 
-#define TEMPS_QUESTION 10.0
-
 int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF_Font *police, int renvoi){
 
     SDL_Surface *txt_Question=NULL, *txt_Rep1=NULL, *txt_Rep2=NULL, *txt_Rep3=NULL, *txt_Rep4=NULL, *txt_Timer=NULL;
@@ -20,9 +18,25 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     int boucle = 1;
 
     char temps[20];
-    float seconde=TEMPS_QUESTION;
+    float tempsTot = 60.0;
+    float seconde=60.0;
 
-    int Reclongueur=250, Rechauteur=60;
+    switch(renvoi){
+        case 21: //Facile
+            tempsTot=20.0;break;
+
+        case 22: //Moyen
+            tempsTot=15.0;break;
+        case 23: //Difficile
+            tempsTot=5.0;break;
+
+        default:
+            tempsTot=60.0;break;
+    }
+
+    seconde=tempsTot;
+
+    int Reclongueur=300, Rechauteur=60;
 
     int note=0;
 
@@ -39,10 +53,11 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     int nb_question=0;
 
     CSV = fopen("csv.csv","rt");
-    while(fgets(ligne,40,CSV) != NULL){
+    while(fgets(ligne,80,CSV) != NULL){
         //Explosion de la ligne avec le ;
         ssChaine = strtok(ligne,";");
-        for(i=0;i<6;i++){ // id, lib_question, r1, r2, r3, r4
+        for(i=0;i<7;i++){
+            // id, lib_question, r1, r2, r3, r4, id_reponse
             sscanf(ssChaine,"%s",elementTab);
             switch(i){
                 case 0:
@@ -57,6 +72,8 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                     strcpy(tab[nb_question].reponse3, elementTab);break;
                 case 5:
                     strcpy(tab[nb_question].reponse4, elementTab);break;
+                case 6:
+                    tab[nb_question].resultat = char_to_int(elementTab[0]);break;
             }
             ssChaine = strtok(NULL, ";");
         }
@@ -70,28 +87,28 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
 
-    positionRect_Quest.x = 150;
-    positionRect_Quest.y = 100;
+    positionRect_Quest.x = 100;
+    positionRect_Quest.y = 25;
 
-    positionRect_Timer.x = 150;
+    positionRect_Timer.x = 250;
     positionRect_Timer.y = 200;
 
-    positionRect_Rep1.x = 40;
+    positionRect_Rep1.x = 20;
     positionRect_Rep1.y = 300;
 
     positionRect_Rep2.x = 330;
     positionRect_Rep2.y = 300;
 
-    positionRect_Rep3.x = 40;
+    positionRect_Rep3.x = 20;
     positionRect_Rep3.y = 400;
 
     positionRect_Rep4.x = 330;
     positionRect_Rep4.y = 400;
 
-    positionTxt_Quest.x = positionRect_Quest.x+(Reclongueur/4);
+    positionTxt_Quest.x = positionRect_Quest.x+(Reclongueur/5);
     positionTxt_Quest.y = positionRect_Quest.y+(Rechauteur/4);
 
-    positionTxt_Timer.x = positionRect_Timer.x+(Reclongueur/4);
+    positionTxt_Timer.x = positionRect_Timer.x+(Reclongueur/5);
     positionTxt_Timer.y = positionRect_Timer.y+(Rechauteur/4);
 
     positionTxt_Rep1.x  = positionRect_Rep1.x+(Reclongueur/4);
@@ -104,20 +121,20 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     positionTxt_Rep3.y  = positionRect_Rep3.y+(Rechauteur/4);
 
     positionTxt_Rep4.x  = positionRect_Rep4.x+(Reclongueur/4);
-    positionTxt_Rep4.y  = positionRect_Rep4.y+(Rechauteur/4);
+    positionTxt_Rep4.y  = positionRect_Rep4.y+(Rechauteur/8);
 
     //Caractéristiques des élèments
 
-    rect_Question = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur+Reclongueur/3), Rechauteur, 32, 0, 0, 0, 0);
-    rect_Timer    = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
+    rect_Question = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur+(Reclongueur/2), Rechauteur, 32, 0, 0, 0, 0);
+    rect_Timer    = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/2), Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep1     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep2     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep3     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep4     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
 
+int now=0, last=0;
 
-
-    while(boucle!=0 && nb_question!=0 ){ //&& note<3){
+    while(boucle!=0 && nb_question!=0 && note<3){
 
         /*Gestion du chronomètre dans le jeu*/
         seconde = timer(seconde);
@@ -126,7 +143,12 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
         }
 
         if(seconde == 0.0){
-            boucle = 0;
+            now = SDL_GetTicks();
+            if(now > last + 500) {
+               nb_question--;
+                seconde=tempsTot;
+            }
+         last=now;
         }
 
         SDL_PollEvent(&evenement); // Récupération de l'évènement
@@ -137,56 +159,58 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                 boucle = 0;
                 break;
 
-            case SDL_KEYDOWN: //Appui sur une touche
-                switch(evenement.key.keysym.sym){// Analyse de la touche
-
-                    case SDLK_ESCAPE://Accès aux options
-                        renvoi = 51;
-                        boucle = 0;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-
             case SDL_MOUSEBUTTONUP: // Clic souris
                 switch(evenement.button.button){ //Analyse de l'équipement de la souris
                     case SDL_BUTTON_LEFT:
 
-                        //Reponse 1
-                        if(interieurClic(evenement,positionRect_Rep1, Reclongueur, Rechauteur)){
-                            if(( strstr(tab[nb_question-1].reponse1,"*")) != NULL){
-                                note++;
+                        //Delai de 0.5 secondes avant de pouvoir réexcuter un évènement
+                        now = SDL_GetTicks();
+                        if(now > last + 500){
+                            //Reponse 1
+                            if(interieurClic(evenement,positionRect_Rep1, Reclongueur, Rechauteur)){
+                                if(tab[nb_question-1].resultat==1){
+                                    note++;
+                                }
+                                nb_question--;
+                                seconde=tempsTot;
+                                evenement.type=SDL_ACTIVEEVENT;
+                                // on change evenement.type pour eviter la boucle infinie
                             }
-                            nb_question=3;
-                            seconde=TEMPS_QUESTION;
-                        }
 
-                        //Reponse 2
-                        if(interieurClic(evenement,positionRect_Rep2, Reclongueur, Rechauteur)){
-                            if(( strstr(tab[nb_question-1].reponse2,"*")) != NULL){
-                                note++;
-                            }
-                            nb_question=2;
-                            seconde=TEMPS_QUESTION;
-                        }
 
-                        //Reponse 3
-                        if(interieurClic(evenement,positionRect_Rep3, Reclongueur, Rechauteur)){
-                            if(( strstr(tab[nb_question-1].reponse3,"*")) != NULL){
-                                note++;
+                            //Reponse 2
+                            if(interieurClic(evenement,positionRect_Rep2, Reclongueur, Rechauteur)){
+                                if(tab[nb_question-1].resultat==2){
+                                    note++;
+                                }
+                                nb_question--;
+                                seconde=tempsTot;
+                                evenement.type=SDL_ACTIVEEVENT;
+                                // on change evenement.type pour eviter la boucle infinie
                             }
-                            nb_question=1;
-                            seconde=TEMPS_QUESTION;
-                        }
 
-                        //Reponse 4
-                        if(interieurClic(evenement,positionRect_Rep4, Reclongueur, Rechauteur)){
-                            if(( strstr(tab[nb_question-1].reponse4,"*")) != NULL){
-                                note++;
+                            //Reponse 3
+                            if(interieurClic(evenement,positionRect_Rep3, Reclongueur, Rechauteur)){
+                                if(tab[nb_question-1].resultat==3){
+                                    note++;
+                                }
+                                nb_question--;
+                                seconde=tempsTot;
+                                evenement.type=SDL_ACTIVEEVENT;
+                                // on change evenement.type pour eviter la boucle infinie
                             }
-                            nb_question--;
-                            seconde=TEMPS_QUESTION;
+
+                            //Reponse 4
+                            if(interieurClic(evenement,positionRect_Rep4, Reclongueur, Rechauteur)){
+                                if(tab[nb_question-1].resultat==4){
+                                    note++;
+                                }
+                                nb_question--;
+                                seconde=tempsTot;
+                                evenement.type=SDL_ACTIVEEVENT;
+                                // on change evenement.type pour eviter la boucle infinie
+                            }
+                            last=now;
                         }
                         break;
                 }
@@ -231,7 +255,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
         /*Affichage des élèments + background à chaque tour de boucle*/
 
             //Coloration du fond
-                SDL_FillRect(fenetre, NULL, SDL_MapRGB(fenetre->format, 255, 255, 112));
+                SDL_FillRect(fenetre, NULL, SDL_MapRGB(fenetre->format, 0, 0, 0));
                 SDL_BlitSurface(imagebg, NULL, fenetre, &positionFond);
 
                 //Application de l'élèment sur le background
@@ -275,5 +299,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     SDL_FreeSurface(txt_Rep3);
     SDL_FreeSurface(txt_Rep4);
 
-    return (renvoi>30 && renvoi<40) ? (renvoi+30) : renvoi;
+    /*ECRITURE DANS LE FICHIER DE SAUVEGARDE*/
+
+    return (renvoi>20 && renvoi<30) ? (renvoi+40) : renvoi;
 }

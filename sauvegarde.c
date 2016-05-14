@@ -22,7 +22,7 @@ int sauvegarde(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     //Chargement de la police
     TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
 
-    txt_titre   = TTF_RenderText_Blended(police, "SAUVEGARDE", couleurNoire);
+    txt_titre   = TTF_RenderText_Blended(police, "STATISTIQUES", couleurNoire);
     txt_sv1     = TTF_RenderText_Blended(police, "SAUVEGARDE 1", couleurNoire);
     txt_sv2     = TTF_RenderText_Blended(police, "SAUVEGARDE 2", couleurNoire);
     txt_sv3     = TTF_RenderText_Blended(police, "SAUVEGARDE 3", couleurNoire);
@@ -55,7 +55,7 @@ int sauvegarde(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     positionTxt_SV3.x   =   positionRect_SV3.x+(Reclongueur/4);
     positionTxt_SV3.y   =   positionRect_SV3.y+(Rechauteur/4);
 
-    positionTxt_Back.x  =   positionRect_Back.x+(Reclongueur/4);
+    positionTxt_Back.x  =   positionRect_Back.x+(Reclongueur/5);
     positionTxt_Back.y  =   positionRect_Back.y+(Rechauteur/4);
 
     //Caractéristiques des élèments "rectangles"
@@ -131,7 +131,7 @@ int sauvegarde(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
         /*Affichage des élèments + background à chaque tour de boucle*/
             //Coloration du fond
 
-                SDL_FillRect(fenetre, NULL, SDL_MapRGB(fenetre->format, 255, 255, 112));
+                SDL_FillRect(fenetre, NULL, SDL_MapRGB(fenetre->format, 0, 0, 0));
                 SDL_BlitSurface(imagebg, NULL, fenetre, &positionFond);
 
                 //Application de l'élèment sur le background

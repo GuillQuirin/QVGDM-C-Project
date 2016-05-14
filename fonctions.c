@@ -53,3 +53,10 @@ float timer(float seconde){
     return seconde;
 }
 
+
+int char_to_int(char str){
+    char tab[2];
+    tab[0] = str;
+    tab[1]='\0';
+    return (int) strtol(tab, NULL, 10);
+}
