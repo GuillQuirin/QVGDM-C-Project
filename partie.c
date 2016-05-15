@@ -27,6 +27,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
         case 22: //Moyen
             tempsTot=15.0;break;
+
         case 23: //Difficile
             tempsTot=5.0;break;
 
@@ -313,5 +314,6 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     fputc('\n',CSV);
     fclose(CSV);
 
-    return (renvoi>20 && renvoi<30) ? (renvoi+40) : renvoi;
+    //Redirection vers score final
+    return 6;
 }

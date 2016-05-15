@@ -77,14 +77,11 @@ int main(int argc, char *argv[])
                         retour = sauvegarde(fenetre,imagebg, positionFond, police);
                         break;
                 /*Options*/
-                case 5://Options depuis menu
-                //case 51://Options depuis game
+                case 5:
                         retour = option(fenetre,imagebg, positionFond,police, retour);
                         break;
                 /*Stats de fin de parties*/
-                case 61:
-                case 62:
-                case 63:
+                case 6:
                         retour = stats(fenetre,imagebg, positionFond,police, retour);
                         break;
 

@@ -26,7 +26,7 @@ int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF
     char resultat[20];
 
     //Tableau de structure pour 10 questions
-    score tab[100];
+    donnee tab[100];
     char *mot;
     int nb_question=-1;
     CSV = fopen("stats.txt","r");
@@ -39,7 +39,6 @@ int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF
         mot = strtok(NULL," ");
         tab[nb_question].bareme=atoi(mot);
 
-        printf("%d, %d\n", tab[nb_question].note, tab[nb_question].bareme);
     }
     fclose(CSV);
 

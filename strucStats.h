@@ -1,6 +1,6 @@
 
-typedef struct SCORE score;
-struct SCORE{
+typedef struct DONNEE donnee;
+struct DONNEE{
     int note;
     int bareme;
 };

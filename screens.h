@@ -9,6 +9,7 @@
 #include "stats.c"
 #include "options.c"
 
+
 int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF_Font police);
 int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond,  TTF_Font police);
 int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond,TTF_Font police, int type);
