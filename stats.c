@@ -19,51 +19,37 @@ int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF
     int Reclongueur=250, Rechauteur=60;
 
 
-    /*GESTION DU CSV*/
+   /*GESTION DU CSV*/
 
-       FILE *CSV;
-    int i=0;
+    FILE *CSV;
+    char elementTab[100];
+    char resultat[20];
 
-    char elementTab[10];
     //Tableau de structure pour 10 questions
-    score tab[30];
-    /*int nb_question=0;
-    CSV = fopen("stat.txt","r");
-    while(( fgets(elementTab,10,CSV) ) != NULL ){
-        switch(i%7){
-            //ID
-            case 0:
-                strcpy(tab[nb_question].id, elementTab);
-                printf("%s",tab[nb_question].id);
-                nb_question++;
-                break;
-            //QUESTION
-            case 1:
-                strcpy(tab[nb_question].question, elementTab);
-                printf("%s",tab[nb_question].question);
-                break;
-            //REPONSE 1
-            case 2:
-                strcpy(tab[nb_question].reponse1, elementTab);
-                printf("%s",tab[nb_question].reponse1);
-                break;
-            //REPONSE FINALE
-            case 6:
-                del_char(elementTab,';');
-                tab[nb_question].resultat=atoi(elementTab);
-                printf("%d\n",tab[nb_question].resultat);
-                i++;
-                break;
-        }
+    score tab[100];
+    char *mot;
+    int nb_question=-1;
+    CSV = fopen("stats.txt","r");
+    while(( fgets(elementTab,100,CSV) ) != NULL ){
+        nb_question++;
+
+        mot = strtok(elementTab,",");
+        tab[nb_question].note=atoi(mot);
+
+        mot = strtok(NULL," ");
+        tab[nb_question].bareme=atoi(mot);
+
+        printf("%d, %d\n", tab[nb_question].note, tab[nb_question].bareme);
     }
-    fclose(CSV);*/
+    fclose(CSV);
 
     /*Chargement de la police*/
 
     TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
 
     txt_Titre   = TTF_RenderText_Blended(police, "RESULTAT", couleurNoire);
-    //txt_Score   = TTF_RenderText_Blended(police, tab[nb_question].note, couleurNoire);
+        sprintf(resultat, "%d / %d", tab[nb_question].note, tab[nb_question].bareme);
+    txt_Score   = TTF_RenderText_Blended(police, resultat, couleurNoire);
     txt_Menu    = TTF_RenderText_Blended(police, "RETOUR AU MENU", couleurNoire);
     txt_Quit    = TTF_RenderText_Blended(police, "QUITTER", couleurNoire);
 
