@@ -51,7 +51,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     int nb_question=0;
     CSV = fopen("csv.txt","r");
     while(( fgets(elementTab,100,CSV) ) != NULL ){
-        del_char(elementTab,';');
+        del_char(elementTab, '\0');
         switch(i%7){
             //ID
             case 0:
@@ -79,7 +79,6 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                 break;
             //REPONSE FINALE
             case 6:
-                del_char(elementTab,';');
                 tab[nb_question].resultat=atoi(elementTab);
                 nb_question++;
                 break;
@@ -309,8 +308,9 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     /*ECRITURE DANS LE FICHIER DE SAUVEGARDE*/
     char notation[20];
     sprintf(notation, "%d;%d", note, nb_total_questions);
-    CSV = fopen("stats.csv","w");
-    fputs(notation,CSV);
+    CSV = fopen("stats.txt","a");
+    fprintf(CSV,"%d,%d",note, nb_total_questions);
+    fputc('\n',CSV);
     fclose(CSV);
 
     return (renvoi>20 && renvoi<30) ? (renvoi+40) : renvoi;
