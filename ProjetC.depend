@@ -1,0 +1,518 @@
+# depslib dependency file v1.0
+1463324779 source:c:\users\guillaume\desktop\projetc\main.cpp
+	"bibliotheque.h"
+	"screens.h"
+	"fonctions.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1326114587 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_config.h
+	"SDL_platform.h"
+	"SDL_config_dreamcast.h"
+	"SDL_config_macos.h"
+	"SDL_config_macosx.h"
+	"SDL_config_symbian.h"
+	"SDL_config_win32.h"
+	"SDL_config_os2.h"
+	"SDL_config_minimal.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_platform.h
+
+1326114594 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_config_win32.h
+	"SDL_platform.h"
+
+1326114600 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\begin_code.h
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\close_code.h
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_keysym.h
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325792434 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1326114587 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_config.h
+	"SDL_platform.h"
+	"SDL_config_dreamcast.h"
+	"SDL_config_macos.h"
+	"SDL_config_macosx.h"
+	"SDL_config_symbian.h"
+	"SDL_config_win32.h"
+	"SDL_config_os2.h"
+	"SDL_config_minimal.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_platform.h
+
+1326114594 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_config_win32.h
+	"SDL_platform.h"
+
+1326114600 c:\program files (x86)\codeblocks\sdl-1.2.15\include\begin_code.h
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\close_code.h
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_keysym.h
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1258249952 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_mixer.h
+	"SDL_types.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl_types.h
+	"SDL_stdinc.h"
+
+1458858424 source:c:\users\guillaume\desktop\projetc\musique.c
+
+1458858889 source:c:\users\guillaume\desktop\projetc\accueil.c
+
+1458860635 c:\users\guillaume\desktop\projetc\timer.h
+
+1458860657 source:c:\users\guillaume\desktop\projetc\timer.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	"timer.h"
+
+1463318549 source:c:\users\guillaume\desktop\projetc\fonctions.c
+	"bibliotheque.h"
+
+1460064940 c:\users\guillaume\desktop\projetc\prototype.h
+	"fonctions.c"
+	"menu.c"
+
+1463318549 c:\users\guillaume\desktop\projetc\fonctions.c
+	"bibliotheque.h"
+
+1463427439 c:\users\guillaume\desktop\projetc\menu.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1463427439 source:c:\users\guillaume\desktop\projetc\menu.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1463413177 c:\users\guillaume\desktop\projetc\bibliotheque.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<SDL/SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	<sys/stat.h>
+
+1460210248 source:c:\users\guillaume\desktop\projetc\gestion_save.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1463264828 c:\users\guillaume\desktop\projetc\fonctions.h
+
+1463328108 c:\users\guillaume\desktop\projetc\screens.h
+	"fonctions.c"
+	"menu.c"
+	"sauvegarde.c"
+	"difficulte.c"
+	"partie.c"
+	"stats.c"
+	"options.c"
+
+1460210248 c:\users\guillaume\desktop\projetc\gestion_save.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1463414207 c:\users\guillaume\desktop\projetc\partie.c
+	"bibliotheque.h"
+	"fonctions.h"
+	"struc.h"
+
+1463413761 c:\users\guillaume\desktop\projetc\stats.c
+	"bibliotheque.h"
+	"fonctions.h"
+	"strucStats.h"
+
+1463409823 c:\users\guillaume\desktop\projetc\options.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1463409823 source:c:\users\guillaume\desktop\projetc\options.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1463414207 source:c:\users\guillaume\desktop\projetc\partie.c
+	"bibliotheque.h"
+	"fonctions.h"
+	"struc.h"
+
+1463413761 source:c:\users\guillaume\desktop\projetc\stats.c
+	"bibliotheque.h"
+	"fonctions.h"
+	"strucStats.h"
+
+1466000701 source:c:\users\guillaume\desktop\projetc\difficulte.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1466001071 c:\users\guillaume\desktop\projetc\difficulte.c
+	"bibliotheque.h"
+	"fonctions.h"
+
+1463427550 c:\users\guillaume\desktop\projetc\sauvegarde.c
+	"bibliotheque.h"
+	"fonctions.h"
+	"strucSave.h"
+
+1463427550 source:c:\users\guillaume\desktop\projetc\sauvegarde.c
+	"bibliotheque.h"
+	"fonctions.h"
+	"strucSave.h"
+
+1461686375 source:c:\users\guillaume\desktop\projetc\csv.c
+	"bibliotheque.h"
+
+1463352050 c:\users\guillaume\desktop\projetc\struc.h
+
+1463328411 c:\users\guillaume\desktop\projetc\strucstats.h
+
+1463328541 c:\users\guillaume\desktop\projetc\strucsave.h
+

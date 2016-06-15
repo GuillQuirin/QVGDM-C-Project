@@ -1,1 +1,0 @@
-float timer(float seconde);

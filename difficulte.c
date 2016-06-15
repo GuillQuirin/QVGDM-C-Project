@@ -5,11 +5,11 @@
 
 int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF_Font *police){
 
-    SDL_Surface *txt_Titre=NULL, *txt_Fac=NULL, *txt_Moy=NULL, *txt_Diff=NULL,  *txt_Menu=NULL;
-    SDL_Surface *rect_Titre=NULL, *rect_Fac=NULL, *rect_Moy=NULL, *rect_Diff=NULL, *rect_Menu=NULL;
+    SDL_Surface *txt_Titre=NULL, *txt_Fac=NULL, *txt_Moy=NULL, *txt_Diff=NULL,  *txt_Menu=NULL, *txt_Multi;
+    SDL_Surface *rect_Titre=NULL, *rect_Fac=NULL, *rect_Moy=NULL, *rect_Diff=NULL, *rect_Menu=NULL, *rect_Multi;
 
-    SDL_Rect positionRec_Titre, positionRec_Fac, positionRec_Moy, positionRec_Diff, positionRec_Menu;
-    SDL_Rect positionTxt_Titre, positionTxt_Fac, positionTxt_Moy, positionTxt_Diff, positionTxt_Menu;
+    SDL_Rect positionRec_Titre, positionRec_Fac, positionRec_Moy, positionRec_Diff, positionRec_Menu, positionRec_Multi;
+    SDL_Rect positionTxt_Titre, positionTxt_Fac, positionTxt_Moy, positionTxt_Diff, positionTxt_Menu, positionTxt_Multi;
 
     SDL_Color couleurNoire = {0,0,0};
 
@@ -27,6 +27,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     txt_Fac     = TTF_RenderText_Blended(police, "FACILE", couleurNoire);
     txt_Moy     = TTF_RenderText_Blended(police, "NORMAL", couleurNoire);
     txt_Diff    = TTF_RenderText_Blended(police, "DIFFICILE", couleurNoire);
+    txt_Multi   = TTF_RenderText_Blended(police, "Multijoueur", couleurNoire);
     txt_Menu    = TTF_RenderText_Blended(police, "RETOUR AU MENU", couleurNoire);
 
     positionRec_Titre.x = 200;
@@ -41,7 +42,10 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     positionRec_Diff.x  = 200;
     positionRec_Diff.y  = 300;
 
-    positionRec_Menu.x  = 200;
+    positionRec_Multi.x  = 400;
+    positionRec_Multi.y  = 400;
+
+    positionRec_Menu.x  = 50;
     positionRec_Menu.y  = 400;
 
 
@@ -57,6 +61,9 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     positionTxt_Diff.x  = positionRec_Diff.x+(Reclongueur/4);
     positionTxt_Diff.y  = positionRec_Diff.y+(Rechauteur/4);
 
+    positionTxt_Multi.x  = positionRec_Multi.x+(Reclongueur/4);
+    positionTxt_Multi.y  = positionRec_Multi.y+(Rechauteur/4);
+
     positionTxt_Menu.x  = positionRec_Menu.x+(Reclongueur/10);
     positionTxt_Menu.y  = positionRec_Menu.y+(Rechauteur/4);
 
@@ -66,6 +73,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     rect_Fac    = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rect_Moy    = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rect_Diff   = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
+    rect_Multi  = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
     rect_Menu   = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
 
 
@@ -75,7 +83,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
         switch(evenement.type){//Type d'évènement
 
             case SDL_QUIT: // Arrêt du programme
-                boucle = 0;
+                return EXIT_SUCCESS;
                 break;
 
             case SDL_MOUSEBUTTONUP: // Clic souris
@@ -118,7 +126,12 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                     SDL_FillRect(rect_Diff, NULL, SDL_MapRGB(fenetre->format, 255, 255,255));
                    }
 
-                //Rectangle 4
+                //Multijoueur
+                if(interieurMove(evenement, positionRec_Multi, Reclongueur, Rechauteur)){
+                    SDL_FillRect(rect_Multi, NULL, SDL_MapRGB(fenetre->format, 255, 255,255));
+                   }
+
+                //Menu
                 if(interieurMove(evenement, positionRec_Menu, Reclongueur, Rechauteur)){
                     SDL_FillRect(rect_Menu, NULL, SDL_MapRGB(fenetre->format, 255, 255, 255));
                    }
@@ -137,6 +150,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                 SDL_BlitSurface(rect_Titre, NULL, fenetre, &positionRec_Titre);
                 SDL_BlitSurface(rect_Fac, NULL, fenetre, &positionRec_Fac);
                 SDL_BlitSurface(rect_Moy, NULL, fenetre, &positionRec_Moy);
+                SDL_BlitSurface(rect_Multi, NULL, fenetre, &positionRec_Multi);
                 SDL_BlitSurface(rect_Diff, NULL, fenetre, &positionRec_Diff);
                 SDL_BlitSurface(rect_Menu, NULL, fenetre, &positionRec_Menu);
 
@@ -144,6 +158,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                 SDL_FillRect(rect_Fac, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
                 SDL_FillRect(rect_Moy, NULL, SDL_MapRGB(fenetre->format, 255, 153, 0));
                 SDL_FillRect(rect_Diff, NULL, SDL_MapRGB(fenetre->format, 255, 0, 0));
+                SDL_FillRect(rect_Multi, NULL, SDL_MapRGB(fenetre->format, 255, 0, 0));
                 SDL_FillRect(rect_Menu, NULL, SDL_MapRGB(fenetre->format, 102, 204, 255));
 
             //Caractéristiques du texte
@@ -151,6 +166,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                 SDL_BlitSurface(txt_Fac, NULL, fenetre, &positionTxt_Fac);
                 SDL_BlitSurface(txt_Moy, NULL, fenetre, &positionTxt_Moy);
                 SDL_BlitSurface(txt_Diff, NULL, fenetre, &positionTxt_Diff);
+                SDL_BlitSurface(txt_Multi, NULL, fenetre, &positionTxt_Multi);
                 SDL_BlitSurface(txt_Menu, NULL, fenetre, &positionTxt_Menu);
 
             /*Mise à jour de la fenêtre avec les élèments modifiés*/
@@ -161,10 +177,12 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     SDL_FreeSurface(rect_Moy);
     SDL_FreeSurface(rect_Diff);
     SDL_FreeSurface(rect_Menu);
+    SDL_FreeSurface(rect_Multi);
     SDL_FreeSurface(txt_Titre);
     SDL_FreeSurface(txt_Fac);
     SDL_FreeSurface(txt_Moy);
     SDL_FreeSurface(txt_Diff);
+    SDL_FreeSurface(txt_Multi);
     SDL_FreeSurface(txt_Menu);
 
     return renvoi;

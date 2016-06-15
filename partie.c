@@ -37,7 +37,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     seconde=tempsTot;
 
-    int Reclongueur=300, Rechauteur=60;
+    int Reclongueur=350, Rechauteur=60;
 
     int note=0;
 
@@ -46,47 +46,52 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     FILE *CSV;
     int i=0;
 
-    char elementTab[100];
+    char elementTab[150];
     //Tableau de structure pour 10 questions
-    etape tab[100];
+    etape tab[150];
     int nb_question=0;
     CSV = fopen("csv.txt","r");
-    while(( fgets(elementTab,100,CSV) ) != NULL ){
-        del_char(elementTab, '\0');
-        switch(i%7){
-            //ID
-            case 0:
-                tab[nb_question].id=atoi(elementTab);
-                break;
-            //QUESTION
-            case 1:
-                strcpy(tab[nb_question].question, elementTab);
-                break;
-            //REPONSE 1
-            case 2:
-                strcpy(tab[nb_question].reponse1, elementTab);
-                break;
-            //REPONSE 2
-            case 3:
-                strcpy(tab[nb_question].reponse2, elementTab);
-                break;
-            //REPONSE 3
-            case 4:
-                strcpy(tab[nb_question].reponse3, elementTab);
-                break;
-            //REPONSE 4
-            case 5:
-                strcpy(tab[nb_question].reponse4, elementTab);
-                break;
-            //REPONSE FINALE
-            case 6:
-                tab[nb_question].resultat=atoi(elementTab);
-                nb_question++;
-                break;
+    if(CSV){
+        while(( fgets(elementTab,150,CSV) ) != NULL ){
+            del_char(elementTab, '\0');
+            switch(i%7){
+                //ID
+                case 0:
+                    tab[nb_question].id=atoi(elementTab);
+                    break;
+                //QUESTION
+                case 1:
+                    strcpy(tab[nb_question].question, elementTab);
+                    break;
+                //REPONSE 1
+                case 2:
+                    strcpy(tab[nb_question].reponse1, elementTab);
+                    break;
+                //REPONSE 2
+                case 3:
+                    strcpy(tab[nb_question].reponse2, elementTab);
+                    break;
+                //REPONSE 3
+                case 4:
+                    strcpy(tab[nb_question].reponse3, elementTab);
+                    break;
+                //REPONSE 4
+                case 5:
+                    strcpy(tab[nb_question].reponse4, elementTab);
+                    break;
+                //REPONSE FINALE
+                case 6:
+                    tab[nb_question].resultat=atoi(elementTab);
+                    nb_question++;
+                    break;
+            }
+            i++;
         }
-        i++;
+        fclose(CSV);
     }
-    fclose(CSV);
+    else{
+        boucle=0;
+    }
 
     int nb_total_questions = nb_question;
 
@@ -112,7 +117,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     positionRect_Rep4.x = 330;
     positionRect_Rep4.y = 400;
 
-    positionTxt_Quest.x = positionRect_Quest.x+(Reclongueur/5);
+    positionTxt_Quest.x = positionRect_Quest.x+5;
     positionTxt_Quest.y = positionRect_Quest.y+(Rechauteur/4);
 
     positionTxt_Timer.x = positionRect_Timer.x+(Reclongueur/5);
@@ -133,11 +138,11 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     //Caractéristiques des élèments
 
     rect_Question = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur+(Reclongueur/2), Rechauteur, 32, 0, 0, 0, 0);
-    rect_Timer    = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/2), Rechauteur, 32, 0, 0, 0, 0);
-    rect_Rep1     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
-    rect_Rep2     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
-    rect_Rep3     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
-    rect_Rep4     = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur, Rechauteur, 32, 0, 0, 0, 0);
+    rect_Timer    = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
+    rect_Rep1     = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
+    rect_Rep2     = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
+    rect_Rep3     = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
+    rect_Rep4     = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
 
     int now=0, last=0;
 
@@ -151,7 +156,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
         if(seconde == 0.0){
             now = SDL_GetTicks();
-            if(now > last + 500) {
+            if(now > last + 100) {
                nb_question--;
                 seconde=tempsTot;
             }
@@ -163,7 +168,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
         switch(evenement.type){//Type d'évènement
 
             case SDL_QUIT: // Arrêt du programme
-                boucle = 0;
+                return EXIT_SUCCESS;
                 break;
 
             case SDL_MOUSEBUTTONUP: // Clic souris
@@ -172,7 +177,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
                         //Delai de 0.5 secondes avant de pouvoir réexcuter un évènement
                         now = SDL_GetTicks();
-                        if(now > last + 500){
+                        if(now > last + 100){
                             //Reponse 1
                             if(interieurClic(evenement,positionRect_Rep1, Reclongueur, Rechauteur)){
                                 if(tab[nb_question-1].resultat==1){
@@ -309,7 +314,12 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     /*ECRITURE DANS LE FICHIER DE SAUVEGARDE*/
     char notation[20];
     sprintf(notation, "%d;%d", note, nb_total_questions);
+
     CSV = fopen("stats.txt","a");
+
+    if(!CSV)
+        CSV = fopen("stats.txt","w");
+
     fprintf(CSV,"%d,%d",note, nb_total_questions);
     fputc('\n',CSV);
     fclose(CSV);

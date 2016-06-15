@@ -30,15 +30,23 @@ int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF
     char *mot;
     int nb_question=-1;
     CSV = fopen("stats.txt","r");
-    while(( fgets(elementTab,100,CSV) ) != NULL ){
+
+    if(CSV){
+        while(( fgets(elementTab,100,CSV) ) != NULL ){
+            nb_question++;
+
+            mot = strtok(elementTab,",");
+            tab[nb_question].note=atoi(mot);
+
+            mot = strtok(NULL," ");
+            tab[nb_question].bareme=atoi(mot);
+        }
+    }
+    else{
+        CSV = fopen("stats.txt","w");
         nb_question++;
-
-        mot = strtok(elementTab,",");
-        tab[nb_question].note=atoi(mot);
-
-        mot = strtok(NULL," ");
-        tab[nb_question].bareme=atoi(mot);
-
+        tab[nb_question].note=0;
+        tab[nb_question].bareme=0;
     }
     fclose(CSV);
 
@@ -89,7 +97,7 @@ int stats(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF
         switch(evenement.type){//Type d'évènement
 
             case SDL_QUIT: // Arrêt du programme
-                boucle = 0;
+                return EXIT_SUCCESS;
                 break;
 
             case SDL_MOUSEBUTTONUP: // Clic souris

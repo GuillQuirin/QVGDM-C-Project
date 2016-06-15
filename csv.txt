@@ -6,16 +6,65 @@ Rhinoferos
 Arceus
 1
 2
-Question 2
-Rep1
-Rep2
-Rep3
-Rep4
-1
+En quelle année est sortie le premier jeu pokemon?
+1995
+1996
+1997
+1999
+2
 3
-Question-3
-Rep1
-Rep2
-Rep3
-Rep4
+Quel est l'évolution de mascaiman?
+Crocorible
+Escroco
+Crocrodil
+Insolourdo
+2
+4
+Quel objet permet de réveiller Ronflex?
+Pokeflute
+MaxRepousse
+MasterBall
+CordSortie
 1
+5
+A quel niveau évolue Ymphect?
+35
+45
+55
+65
+3
+6
+Quel est le plus lourd de ces pokemon?
+Wailord
+Steelix
+Dialga
+Groudon
+4
+7
+Quelle est la probabilité d'avoir un shiney?
+1/10000
+1/8192
+1/4096
+1/7858
+3
+8
+Quel est le pokemon ayant la plus grande défense?
+Galeking
+Caratroc
+Regirock
+Onix
+2
+9
+Quel est le type le plus représenté?
+Eau
+Feu
+Roche
+Plante
+1
+10
+Comment s'appelle le premier maitre pokemon?
+Cynthia
+Peter
+Marc
+Sacha
+2

@@ -28,34 +28,40 @@ int sauvegarde(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
 
     FILE *CSV;
     char elementTab[100];
-    char resultat[20];
 
     //Tableau de structure pour 10 questions
     score tab[100];
     char *mot;
-    char *percent;
+    mot = (char*)malloc(100 * sizeof(char));
     int nb_partie=0;
     CSV = fopen("stats.txt","r");
-    while(( fgets(elementTab,100,CSV) ) != NULL ){
-        nb_partie++;
+    if(CSV){
+        while(( fgets(elementTab,100,CSV) ) != NULL ){
+            nb_partie++;
 
-        mot = strtok(elementTab,",");
-        tab[nb_partie-1].note=atoi(mot);
+            mot = strtok(elementTab,",");
+            tab[nb_partie-1].note=atoi(mot);
 
-        mot = strtok(NULL," ");
-        tab[nb_partie-1].bareme=atoi(mot);
+            mot = strtok(NULL," ");
+            tab[nb_partie-1].bareme=atoi(mot);
 
-        //Pourcentage de bonnes réponses par ligne
-        tab[nb_partie-1].moyenne = (tab[nb_partie-1].note * 100) / tab[nb_partie-1].bareme;
+            //Pourcentage de bonnes réponses par ligne
+            tab[nb_partie-1].moyenne = (tab[nb_partie-1].note * 100) / tab[nb_partie-1].bareme;
+        }
     }
+    if(nb_partie==0)
+        CSV = fopen("stats.txt","w");
+
     fclose(CSV);
 
-
     int i=0, moyenne = 0;
-    for(i=0; i < nb_partie ;i++){
-        moyenne += tab[i].moyenne;
+
+    if(nb_partie != 0){
+        for(i=0; i < nb_partie ;i++){
+            moyenne += tab[i].moyenne;
+        }
+        moyenne /= nb_partie;
     }
-    moyenne /= nb_partie;
 
     sprintf(mot,"%d",nb_partie);
     txt_nbPartie    = TTF_RenderText_Blended(police, mot, couleurNoire);
@@ -65,7 +71,7 @@ int sauvegarde(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
 
     txt_titre       = TTF_RenderText_Blended(police, "STATISTIQUES", couleurNoire);
     txt_totalPartie = TTF_RenderText_Blended(police, "Nombre total de parties:", couleurNoire);
-    txt_reussite    = TTF_RenderText_Blended(police, "Taux de réussite:", couleurNoire);
+    txt_reussite    = TTF_RenderText_Blended(police, "Taux de réussite: (en %)", couleurNoire);
     txt_back        = TTF_RenderText_Blended(police, "RETOUR AU MENU", couleurNoire);
 
     positionRect_Titre.x = 150;
@@ -119,7 +125,7 @@ int sauvegarde(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
         switch(evenement.type){//Type d'évènement
 
             case SDL_QUIT: // Arrêt du programme
-                boucle = 0;
+                return EXIT_SUCCESS;
                 break;
 
             case SDL_MOUSEBUTTONUP: // Clic souris
@@ -186,6 +192,7 @@ int sauvegarde(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
             /*Mise à jour de la fenêtre avec les élèments modifiés*/
                 SDL_Flip(fenetre);
     }
+    free(mot);
     SDL_FreeSurface(rect_titre);
     SDL_FreeSurface(rect_totalPartie);
     SDL_FreeSurface(rect_nbPartie);

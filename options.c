@@ -18,7 +18,6 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     //Volume de la musique
     int volume = Mix_VolumeMusic(-1);
-    int modification=volume;
     char *chiffre =NULL;
     chiffre = (char *)malloc(2 * sizeof(char));
     //Chargement de la police
@@ -83,7 +82,7 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
         switch(evenement.type){//Type d'évènement
 
             case SDL_QUIT: // Arrêt du programme
-                boucle = 0;
+                return EXIT_SUCCESS;
                 break;
 
             case SDL_MOUSEBUTTONUP: // Clic souris
@@ -97,7 +96,6 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                         //PLUS
                         if(interieurClic(evenement, position_plus, (Reclongueur/8), Rechauteur)){
                             volume+=10;
-                            modification=Mix_VolumeMusic(volume);
                             volume=Mix_VolumeMusic(-1);
                             sprintf(chiffre,"%d",volume);
                             txt_chiffre = TTF_RenderText_Blended(police, chiffre, couleurNoire);
@@ -105,7 +103,6 @@ int option(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                         //MOINS
                         if(interieurClic(evenement, position_moins, (Reclongueur/8), Rechauteur)){
                             volume-=10;
-                            modification=Mix_VolumeMusic(volume);
                             volume=Mix_VolumeMusic(-1);
                             sprintf(chiffre,"%d",volume);
                             txt_chiffre = TTF_RenderText_Blended(police, chiffre, couleurNoire);

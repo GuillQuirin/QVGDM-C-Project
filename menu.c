@@ -16,11 +16,21 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond,  TTF
         int boucle = 1;
         int renvoi=1;
         int Reclongueur=250, Rechauteur=60;
+        int erreur = 0;
 
         //Chargement de la police
         TTF_SetFontStyle(police,TTF_STYLE_NORMAL);//, TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE);
 
-        txt_Jouer   = TTF_RenderText_Blended(police, "JOUER", couleurNoire);
+        FILE *CSV;
+        CSV = fopen("csv.txt","r");
+        if(CSV)
+            txt_Jouer   = TTF_RenderText_Blended(police, "JOUER", couleurNoire);
+        else{
+            erreur = 1;
+            txt_Jouer   = TTF_RenderText_Blended(police, "PROBLEME - FICHIER", couleurNoire);
+        }
+        fclose(CSV);
+
         txt_Stats    = TTF_RenderText_Blended(police, "STATISTIQUES", couleurNoire);
         txt_Opt     = TTF_RenderText_Blended(police, "OPTIONS", couleurNoire);
         txt_Quit    = TTF_RenderText_Blended(police, "QUITTER", couleurNoire);
@@ -37,7 +47,7 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond,  TTF
         positionRect_Quit.x  = 330;
         positionRect_Quit.y  = 400;
 
-        positionTxt_Jouer.x = positionRect_Jouer.x+(Reclongueur/3);
+        positionTxt_Jouer.x = (erreur == 1) ? positionRect_Jouer.x+5 : positionRect_Jouer.x+(Reclongueur/4);
         positionTxt_Jouer.y = positionRect_Jouer.y+(Rechauteur/4);
 
         positionTxt_Stats.x  = positionRect_Stats.x+(Reclongueur/5);
@@ -62,8 +72,7 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond,  TTF
             switch(evenement.type){//Type d'évènement
 
                 case SDL_QUIT: // Arrêt du programme
-                    boucle = 0;
-                    renvoi=0;
+                    return EXIT_SUCCESS;
                     break;
 
                 case SDL_KEYDOWN: //Appui sur une touche
@@ -85,7 +94,7 @@ int menu(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond,  TTF
                         case SDL_BUTTON_LEFT:
 
                             /*JOUER - Choix difficulte*/
-                            if(interieurClic(evenement,positionRect_Jouer, Reclongueur, Rechauteur)){
+                            if(erreur!=1 && interieurClic(evenement,positionRect_Jouer, Reclongueur, Rechauteur)){
                                 boucle=0;
                                 renvoi=2;
                             }
