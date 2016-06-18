@@ -32,7 +32,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
             tempsTot=5.0;break;
 
         default:
-            tempsTot=60.0;break;
+            tempsTot=30.0;break;
     }
 
     seconde=tempsTot;
