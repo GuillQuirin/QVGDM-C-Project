@@ -349,9 +349,6 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     SDL_FreeSurface(txt_Rep4);
 
     /*ECRITURE DANS LE FICHIER DE SAUVEGARDE*/
-  //  char notation[20];
-//    sprintf(notation, "%d;%d", note, nb_total_questions);
-
     CSV = fopen("stats.txt","a");
 
     if(!CSV)
@@ -363,14 +360,13 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     //Enregistrement pour le deuxieme joueur
     if(renvoi==24){
-  //      sprintf(notation, "%d;%d", note, nb_total_questions);
 
         CSV = fopen("statsjoueur2.txt","a");
 
         if(!CSV)
             CSV = fopen("statsjoueur2.txt","w");
 
-        fprintf(CSV,"%d,%d",note, nb_total_questions/2);
+        fprintf(CSV,"%d,%d",noteJ2, nb_total_questions/2);
         fputc('\n',CSV);
         fclose(CSV);
     }
