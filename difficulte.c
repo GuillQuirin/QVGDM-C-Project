@@ -42,7 +42,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
     positionRec_Diff.x  = 200;
     positionRec_Diff.y  = 300;
 
-    positionRec_Multi.x  = 400;
+    positionRec_Multi.x  = 350;
     positionRec_Multi.y  = 400;
 
     positionRec_Menu.x  = 50;
@@ -102,6 +102,10 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                             boucle=0;
                             renvoi=23;
                         }
+                        if(interieurClic(evenement,positionRec_Multi, Reclongueur, Rechauteur)){
+                            boucle=0;
+                            renvoi=24;
+                        }
                         if(interieurClic(evenement,positionRec_Menu, Reclongueur, Rechauteur)){
                             boucle=0;
                             renvoi=1;
@@ -158,7 +162,7 @@ int difficulte(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond
                 SDL_FillRect(rect_Fac, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
                 SDL_FillRect(rect_Moy, NULL, SDL_MapRGB(fenetre->format, 255, 153, 0));
                 SDL_FillRect(rect_Diff, NULL, SDL_MapRGB(fenetre->format, 255, 0, 0));
-                SDL_FillRect(rect_Multi, NULL, SDL_MapRGB(fenetre->format, 255, 0, 0));
+                SDL_FillRect(rect_Multi, NULL, SDL_MapRGB(fenetre->format, 255, 255, 0));
                 SDL_FillRect(rect_Menu, NULL, SDL_MapRGB(fenetre->format, 102, 204, 255));
 
             //Caractéristiques du texte

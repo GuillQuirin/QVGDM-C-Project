@@ -66,10 +66,11 @@ int main(int argc, char *argv[])
                 case 2:
                         retour = difficulte(fenetre,imagebg, positionFond, police);
                         break;
-                /*3 difficultés */
+                /*3 difficultés + mode multi*/
                 case 21:
                 case 22:
                 case 23:
+                case 24:
                         retour = partie(fenetre,imagebg, positionFond,police, retour);
                         break;
                 /*Liste des sauvegardes*/
@@ -82,6 +83,7 @@ int main(int argc, char *argv[])
                         break;
                 /*Stats de fin de parties*/
                 case 6:
+                case 7:
                         retour = stats(fenetre,imagebg, positionFond,police, retour);
                         break;
 

@@ -4,11 +4,11 @@
 
 int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TTF_Font *police, int renvoi){
 
-    SDL_Surface *txt_Question=NULL, *txt_Rep1=NULL, *txt_Rep2=NULL, *txt_Rep3=NULL, *txt_Rep4=NULL, *txt_Timer=NULL;
-    SDL_Surface *rect_Question=NULL, *rect_Rep1=NULL, *rect_Rep2=NULL, *rect_Rep3=NULL, *rect_Rep4=NULL,  *rect_Timer=NULL;
+    SDL_Surface *txt_Question=NULL, *txt_Rep1=NULL, *txt_Rep2=NULL, *txt_Rep3=NULL, *txt_Rep4=NULL, *txt_Timer=NULL, *txt_Joueur=NULL;
+    SDL_Surface *rect_Question=NULL, *rect_Rep1=NULL, *rect_Rep2=NULL, *rect_Rep3=NULL, *rect_Rep4=NULL,  *rect_Timer=NULL, *rect_Joueur=NULL;
 
-    SDL_Rect positionRect_Quest, positionRect_Rep1,positionRect_Rep2,positionRect_Rep3,positionRect_Rep4, positionRect_Timer;
-    SDL_Rect positionTxt_Quest, positionTxt_Rep1, positionTxt_Rep2, positionTxt_Rep3, positionTxt_Rep4, positionTxt_Timer;
+    SDL_Rect positionRect_Quest, positionRect_Rep1,positionRect_Rep2,positionRect_Rep3,positionRect_Rep4, positionRect_Timer, positionRect_Joueur;
+    SDL_Rect positionTxt_Quest, positionTxt_Rep1, positionTxt_Rep2, positionTxt_Rep3, positionTxt_Rep4, positionTxt_Timer, positionTxt_Joueur;
 
     SDL_Color couleurNoire = {0,0,0};
 
@@ -39,7 +39,10 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     int Reclongueur=350, Rechauteur=60;
 
-    int note=0;
+    int note=0, noteJ2 = 0;
+    int joueur = 1;
+    char tourJoueur[20];
+    sprintf(tourJoueur, "JOUEUR %d", joueur);
 
     /*GESTION DU CSV*/
 
@@ -102,6 +105,9 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     positionRect_Quest.x = 100;
     positionRect_Quest.y = 25;
 
+    positionRect_Joueur.x=250;
+    positionRect_Joueur.y=100;
+
     positionRect_Timer.x = 250;
     positionRect_Timer.y = 200;
 
@@ -119,6 +125,9 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
     positionTxt_Quest.x = positionRect_Quest.x+5;
     positionTxt_Quest.y = positionRect_Quest.y+(Rechauteur/4);
+
+    positionTxt_Joueur.x = positionRect_Joueur.x+(Reclongueur/10);
+    positionTxt_Joueur.y = positionRect_Joueur.y+(Rechauteur/4);
 
     positionTxt_Timer.x = positionRect_Timer.x+(Reclongueur/5);
     positionTxt_Timer.y = positionRect_Timer.y+(Rechauteur/4);
@@ -138,7 +147,8 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     //Caractéristiques des élèments
 
     rect_Question = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur+(Reclongueur/2), Rechauteur, 32, 0, 0, 0, 0);
-    rect_Timer    = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
+    rect_Joueur   = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur/2, Rechauteur, 32, 0, 0, 0, 0);
+    rect_Timer    = SDL_CreateRGBSurface(SDL_HWSURFACE, Reclongueur/2, Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep1     = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep2     = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
     rect_Rep3     = SDL_CreateRGBSurface(SDL_HWSURFACE, (Reclongueur/1.5), Rechauteur, 32, 0, 0, 0, 0);
@@ -181,7 +191,10 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                             //Reponse 1
                             if(interieurClic(evenement,positionRect_Rep1, Reclongueur, Rechauteur)){
                                 if(tab[nb_question-1].resultat==1){
-                                    note++;
+                                    if(joueur==1)
+                                        note++;
+                                    else
+                                        noteJ2++;
                                 }
                                 nb_question--;
                                 seconde=tempsTot;
@@ -193,7 +206,10 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                             //Reponse 2
                             if(interieurClic(evenement,positionRect_Rep2, Reclongueur, Rechauteur)){
                                 if(tab[nb_question-1].resultat==2){
-                                    note++;
+                                    if(joueur==1)
+                                        note++;
+                                    else
+                                        noteJ2++;
                                 }
                                 nb_question--;
                                 seconde=tempsTot;
@@ -204,7 +220,10 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                             //Reponse 3
                             if(interieurClic(evenement,positionRect_Rep3, Reclongueur, Rechauteur)){
                                 if(tab[nb_question-1].resultat==3){
-                                    note++;
+                                    if(joueur==1)
+                                        note++;
+                                    else
+                                        noteJ2++;
                                 }
                                 nb_question--;
                                 seconde=tempsTot;
@@ -215,7 +234,10 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                             //Reponse 4
                             if(interieurClic(evenement,positionRect_Rep4, Reclongueur, Rechauteur)){
                                 if(tab[nb_question-1].resultat==4){
-                                    note++;
+                                    if(joueur==1)
+                                        note++;
+                                    else
+                                        noteJ2++;
                                 }
                                 nb_question--;
                                 seconde=tempsTot;
@@ -223,6 +245,11 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                                 // on change evenement.type pour eviter la boucle infinie
                             }
                             last=now;
+                            //On change de joueur
+                            if(renvoi==24){
+                                joueur = (joueur==1) ? 2 : 1;
+                                sprintf(tourJoueur, "JOUEUR %d", joueur);
+                            }
                         }
                         break;
                 }
@@ -258,6 +285,7 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
         //MAJ du texte
 
         txt_Question = TTF_RenderText_Blended(police,tab[nb_question-1].question,couleurNoire);
+        txt_Joueur   = TTF_RenderText_Blended(police,tourJoueur,couleurNoire);
         txt_Timer    = TTF_RenderText_Blended(police, temps, couleurNoire);
         txt_Rep1     = TTF_RenderText_Blended(police, tab[nb_question-1].reponse1, couleurNoire);
         txt_Rep2     = TTF_RenderText_Blended(police, tab[nb_question-1].reponse2, couleurNoire);
@@ -273,6 +301,8 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                 //Application de l'élèment sur le background
 
                 SDL_BlitSurface(rect_Question, NULL, fenetre, &positionRect_Quest);
+                if(renvoi==24)
+                    SDL_BlitSurface(rect_Joueur, NULL, fenetre, &positionRect_Joueur);
                 SDL_BlitSurface(rect_Timer, NULL, fenetre, &positionRect_Timer);
                 SDL_BlitSurface(rect_Rep1, NULL, fenetre, &positionRect_Rep1);
                 SDL_BlitSurface(rect_Rep2, NULL, fenetre, &positionRect_Rep2);
@@ -280,6 +310,8 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
                 SDL_BlitSurface(rect_Rep4, NULL, fenetre, &positionRect_Rep4);
 
                 SDL_FillRect(rect_Question, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
+                if(renvoi==24)
+                    SDL_FillRect(rect_Joueur, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
                 SDL_FillRect(rect_Timer, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
                 SDL_FillRect(rect_Rep1, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
                 SDL_FillRect(rect_Rep2, NULL, SDL_MapRGB(fenetre->format, 17, 206, 112));
@@ -288,6 +320,8 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
 
             //Caractéristiques du texte
                 SDL_BlitSurface(txt_Question, NULL, fenetre, &positionTxt_Quest);
+                if(renvoi==24)
+                    SDL_BlitSurface(txt_Joueur, NULL, fenetre, &positionTxt_Joueur);
                 SDL_BlitSurface(txt_Timer, NULL, fenetre, &positionTxt_Timer);
                 SDL_BlitSurface(txt_Rep1, NULL, fenetre, &positionTxt_Rep1);
                 SDL_BlitSurface(txt_Rep2, NULL, fenetre, &positionTxt_Rep2);
@@ -299,12 +333,15 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     }
 
     SDL_FreeSurface(rect_Question);
+    SDL_FreeSurface(rect_Joueur);
     SDL_FreeSurface(rect_Timer);
     SDL_FreeSurface(rect_Rep1);
     SDL_FreeSurface(rect_Rep2);
     SDL_FreeSurface(rect_Rep3);
     SDL_FreeSurface(rect_Rep4);
+
     SDL_FreeSurface(txt_Question);
+    SDL_FreeSurface(txt_Joueur);
     SDL_FreeSurface(txt_Timer);
     SDL_FreeSurface(txt_Rep1);
     SDL_FreeSurface(txt_Rep2);
@@ -312,18 +349,32 @@ int partie(SDL_Surface *fenetre, SDL_Surface *imagebg, SDL_Rect positionFond, TT
     SDL_FreeSurface(txt_Rep4);
 
     /*ECRITURE DANS LE FICHIER DE SAUVEGARDE*/
-    char notation[20];
-    sprintf(notation, "%d;%d", note, nb_total_questions);
+  //  char notation[20];
+//    sprintf(notation, "%d;%d", note, nb_total_questions);
 
     CSV = fopen("stats.txt","a");
 
     if(!CSV)
         CSV = fopen("stats.txt","w");
 
-    fprintf(CSV,"%d,%d",note, nb_total_questions);
+    fprintf(CSV,"%d,%d",note, nb_total_questions/2);
     fputc('\n',CSV);
     fclose(CSV);
 
+    //Enregistrement pour le deuxieme joueur
+    if(renvoi==24){
+  //      sprintf(notation, "%d;%d", note, nb_total_questions);
+
+        CSV = fopen("statsjoueur2.txt","a");
+
+        if(!CSV)
+            CSV = fopen("statsjoueur2.txt","w");
+
+        fprintf(CSV,"%d,%d",note, nb_total_questions/2);
+        fputc('\n',CSV);
+        fclose(CSV);
+    }
+
     //Redirection vers score final
-    return 6;
+    return (renvoi==24) ? 7 : 6;
 }
